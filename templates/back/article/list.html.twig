@@ -1,0 +1,44 @@
+{% extends "back/base-bo.html.twig" %}
+
+
+{% block title %}  {{ parent() }} - main {% endblock %}
+
+{% block stylesheet %}
+{{ parent() }}
+
+{% endblock %}
+
+{% block breadcrumbs %}
+{% include ('back/common/breadcrumbs.html.twig') %}
+{% endblock %}
+
+{% block body %}
+
+<div class="row"> <div class="col-md-12">
+								<div class="card">
+									<div class="card-block">
+										<div class="md-card-block">
+										{% for article in articles %}
+											<pre>
+												{{ dump(article.comments) }}
+											</pre>
+											<p class="m-b-20">
+												<span class="f-w-600 f-16 d-block m-b-10">The standard Lorem Ipsum passage, used since the 1500s</span>
+												"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+												                              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+												                              sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+											</p>
+											
+										{% endfor %}
+										
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+{% endblock %}
