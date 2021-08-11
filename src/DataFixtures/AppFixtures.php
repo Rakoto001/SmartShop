@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Roles;
 use App\Entity\Articles;
 use App\Entity\Booking;
+use App\Entity\Category;
 // use App\Services\ArticeService;
 use App\Entity\Comments;
 use App\Services\UserService;
@@ -79,6 +80,24 @@ class AppFixtures extends Fixture
                  ->setTitle('ROLE_USER');
             $manager->persist($role);
         }
+        
+
+        
+        // for category
+        for($fakeCategory=1; $fakeCategory<=3; $fakeCategory++){
+            $category = new Category;
+            $category->setName('category'.$fakeCategory)
+                     ->setDescription($faker->sentence())
+                     ->setAvatar('https://randomuser.me/api/portraits/')
+                     ->setStatus(mt_rand(0,1));
+            
+            $manager->persist($category);
+
+            $categories[] = $category;
+
+        }
+
+
 
 
 
@@ -95,7 +114,8 @@ class AppFixtures extends Fixture
                     ->setStatus(1)
                     ->setPrice(mt_rand(10,150))
                     ->setCoverImage('https://randomuser.me/api/portraits/')
-                    ->setCreatedBy($user);
+                    ->setCreatedBy($user)
+                    ->setCategory($categories[mt_rand(1,2)]);
 
             //gestion des réservation
             for($indexBooking = 0; $indexBooking<mt_rand(0,5); $indexBooking++){
