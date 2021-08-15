@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\back\Article;
+namespace App\Controller\back\article;
 
 // use App\Services\ArticleService;
 
