@@ -8,6 +8,13 @@ use Doctrine\ORM\EntityManagerInterface;
 class UserService extends BaseService
 {
     private $manager;
+    public const M = 'Homme';
+    public const F = 'Femme';
+    public const GENDER = [
+                            'Masculin' => self::M,
+                            'Féminin'  => self::F,
+    ];
+
    public function __construct(EntityManagerInterface $_manager)
    {
        $this->manager = $_manager;
