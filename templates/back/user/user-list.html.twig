@@ -28,64 +28,32 @@
             <h2 class="panel-title">Liste</h2>
            
         </header>
-       {# <section class="panel">
-        
-        <div class="panel-body">
-            <table 
-            class="table table-bordered table-striped mb-none" 
-            id="user-list-datatable" 
-            page="user" 
-            user="" 
-            ajax-url-permission="" 
-            ajax-url="{{ path('admin_user_ajax_list') }}">
-                <thead>
-                    <tr>
-                        <th>images</th>
-                        <th>Nom</th>
-                        <th>Sexe</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   
-                </tbody>
-            </table>
-        </div>
-    </section> #}
-    <section class="panel">
-        <header class="panel-heading">
-            <div class="panel-actions">
-                <a href="#" class="fa fa-caret-down"></a>
-                <a href="#" class="fa fa-times"></a>
-            </div>
-
-            <h2 class="panel-title">Liste</h2>
-           
-        </header>
-        <div class="panel-body">
-            <table 
-            class="table table-bordered table-striped mb-none" 
-            id="user-list-datatable" 
-            page="user" 
-            user="" 
-            ajax-url-permission="" 
-            ajax-url="{{ path('admin_user_ajax_list') }}">
-                <thead>
-                    <tr>
-                        <th>images</th>
-                        <th>Titre</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   
-                </tbody>
-            </table>
-        </div>
-    </section>
+       <div class="card">
+						<div class="card-header">
+							<h5 class="card-header-text">Hover Effects on Row</h5>
+							<p>Add
+								<code>.table-hover</code>
+								Class in table tag</p>
+						</div>
+						<div class="card-block">
+							<div class="row">
+								<div class="col-sm-12 table-responsive">
+									<table class="table table-bordered table-striped mb-none" id="user-list-datatable" page="user" user="" ajax-url-permission="" ajax-url="{{ path('admin_user_ajax_list') }}">
+										<thead>
+											<tr>
+												<th>images</th>
+												<th>Titre</th>
+												<th>Description</th>
+												<th>Action</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
        
 
     </section>
