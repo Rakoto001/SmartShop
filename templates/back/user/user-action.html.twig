@@ -1,0 +1,119 @@
+{% extends "back/base-bo.html.twig" %}
+
+
+{% block title %}
+	Utilisateur - Liste
+{% endblock %}
+
+{% block stylesheet %}
+	{{ parent() }}
+
+{% endblock %}
+
+{% block breadcrumbs %}
+	{% include ('back/common/breadcrumbs.html.twig') %}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<section class="panel">
+					<header class="panel-heading">
+						<div class="panel-actions">
+							<a href="#" class="fa fa-caret-down"></a>
+							<a href="#" class="fa fa-times"></a>
+						</div>
+
+						<h2 class="panel-title">Liste</h2>
+
+					</header>
+					<div class="card">
+						<div class="card-header">
+							<h5 class="card-header-text">Hover Effects on Row</h5>
+							<p>Add
+								<code>.table-hover</code>
+								Class in table tag</p>
+						</div>
+						<div class="card-block">
+							<div class="row">
+								<div class="col-sm-12 table-responsive">
+									{{ form_start(userForm,{'method':'POST', 'type':'submit', 'attr':{'class':'form-horizontal form-bordered', 'id':'form-user', 'enctype':'multipart/form-data'}         }) }}
+
+                                    <div class="panel-body">
+										<div class="form-group">
+											<label class="col-md-3 control-label" for="inputPlaceholder">Nom</label>
+											<div class="col-md-6">
+												{{form_widget(userForm.username,{'attr':{
+                                                                        'class':"form-control",
+                                                                        'placeholder':"Username"
+                                                                    }
+
+                                                                    })}}
+											</div>
+										</div>
+
+                                        <div class="form-group">
+											<label class="col-md-3 control-label" for="inputPlaceholder">Prénom</label>
+											<div class="col-md-6">
+												{{form_widget(userForm.lastname,{'attr':{
+                                                                        'class':"form-control",
+                                                                        'placeholder':"votre prénom"
+                                                                    }
+
+                                                                    })}}
+											</div>
+										</div>
+
+                                        <div class="form-group">
+											<label class="col-md-3 control-label" for="inputPlaceholder">Sexe</label>
+											<div class="col-md-6">
+												{{form_widget(userForm.gender,{'attr':{
+                                                                        'class':"form-control",
+                                                                        'placeholder':"votre sexe"
+                                                                    }
+
+                                                                    })}}
+											</div>
+										</div>
+
+                                        <div class="form-group">
+											<label class="col-md-3 control-label" for="inputPlaceholder">Status</label>
+											<div class="col-md-6">
+												{{form_widget(userForm.status,{'attr':{
+                                                                        'class':"form-control",
+                                                                        'placeholder':"status"
+                                                                    }
+
+                                                                    })}}
+											</div>
+										</div>
+
+                                        <div class="form-group">
+											<label class="col-md-3 control-label" for="inputPlaceholder">Image Avatar</label>
+											<div class="col-md-6">
+												{{form_widget(userForm.avatar,{'attr':{
+                                                                        'class':"form-control",
+                                                                        'placeholder':"avatar"
+                                                                    }
+
+                                                                    })}}
+											</div>
+										</div>
+
+									</div>
+                                    
+
+								</div>
+							</div>
+						</div>
+
+					</section>
+
+				{% endblock %}
+
+				{% block javascript %}
+					{{ parent() }}
+
+
+				{% endblock %}
