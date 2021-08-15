@@ -30,6 +30,53 @@ class UserService extends BaseService
        return $this->findOneById($_id);
    }
 
+   /**
+    * list the users from database
+    */
+   public function listAllUsers($_parametters)
+   {
+       $listUsers = $this->getAllUsers($_parametters)->getResult();
+       /*
+                        <th>images</th>
+                        <th>Nom</th>
+                        <th>Sexe</th>
+                        <th>Status</th>
+                        <th>Action</th>
+        */
+        $params =[];
+       foreach($listUsers as $user){
+           $params[]  = [ $user->getAvatar(),
+                        $user->getUsername(),
+                         $user->getGender(),
+                        $user->getStatus(),
+                            'delete',
+                        ];
+            
+       } 
+  
+       return [
+                'datas'  => $params,
+                'length' => count($listUsers)
+              ];
+   }
+
+   /**
+    * get all users from database
+    */
+   public function getAllUsers($_parametters)
+   {
+       $limit   = $_parametters['length'];
+       $offset  = $_parametters['start'];
+       $offset  = $_parametters['start'];
+
+       $query   = $this->getRepository()->setLimit($limit, $offset);
+       $query   = $this->getRepository()->makeSearch($_parametters, $query);
+       $query   = $this->getRepository()->makeOrder($query);
+       $results = $query->getQuery();
+
+       return $results;
+   }
+
 
 
 
