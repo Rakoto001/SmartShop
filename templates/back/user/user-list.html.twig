@@ -1,0 +1,106 @@
+{% extends "back/base-bo.html.twig" %}
+
+
+{% block title %}
+	Utilisateur - Liste
+{% endblock %}
+
+{% block stylesheet %}
+	{{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bo/assets/mondatatable/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
+
+{% endblock %}
+
+{% block breadcrumbs %}
+	{% include ('back/common/breadcrumbs.html.twig') %}
+{% endblock %}
+
+{% block body %}
+
+	<section class="panel">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a href="#" class="fa fa-caret-down"></a>
+                <a href="#" class="fa fa-times"></a>
+            </div>
+
+            <h2 class="panel-title">Liste</h2>
+           
+        </header>
+       {# <section class="panel">
+        
+        <div class="panel-body">
+            <table 
+            class="table table-bordered table-striped mb-none" 
+            id="user-list-datatable" 
+            page="user" 
+            user="" 
+            ajax-url-permission="" 
+            ajax-url="{{ path('admin_user_ajax_list') }}">
+                <thead>
+                    <tr>
+                        <th>images</th>
+                        <th>Nom</th>
+                        <th>Sexe</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                </tbody>
+            </table>
+        </div>
+    </section> #}
+    <section class="panel">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a href="#" class="fa fa-caret-down"></a>
+                <a href="#" class="fa fa-times"></a>
+            </div>
+
+            <h2 class="panel-title">Liste</h2>
+           
+        </header>
+        <div class="panel-body">
+            <table 
+            class="table table-bordered table-striped mb-none" 
+            id="user-list-datatable" 
+            page="user" 
+            user="" 
+            ajax-url-permission="" 
+            ajax-url="{{ path('admin_user_ajax_list') }}">
+                <thead>
+                    <tr>
+                        <th>images</th>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                </tbody>
+            </table>
+        </div>
+    </section>
+       
+
+    </section>
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+
+     <script src="{{ asset('bo/assets/mondatatable/datatables.js') }}"></script>
+     <script src="{{ asset('bo/assets/mondatatable/dataTables.min.js') }}"></script>
+     <script src="{{ asset('bo/assets/mondatatable/dataTables.bootstrap4.min.js') }}"></script>
+     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+
+ 
+     <script src="{{asset('bo/js/user.js')}}"></script>
+
+   
+{% endblock %}
