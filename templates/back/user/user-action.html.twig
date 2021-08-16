@@ -6,7 +6,76 @@
 {% endblock %}
 
 {% block stylesheet %}
-	{{ parent() }}
+					{{ parent() }}
+
+    <!-- Favicon icon -->
+	<link rel="shortcut icon" href="{{asset('bo/assets/images/favicon.png')}}" type="image/x-icon">
+	<link rel="icon" href="{{asset('bo/assets/images/favicon.ico')}}" type="image/x-icon">
+
+	<!-- Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet">
+
+   <!--Date Picker Material Icon Css-->
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- themify -->
+	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/icon/themify-icons/themify-icons.css')}}">
+
+   <!-- Font Awesome -->
+   <link href="{{asset('bo/assets/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+
+	<!-- iconfont -->
+	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/icon/icofont/css/icofont.css')}}">
+
+
+	<!-- simple line icon -->
+	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/icon/simple-line-icons/css/simple-line-icons.css')}}">
+
+   <!-- Required Fremwork -->
+   <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/plugins/bootstrap/css/bootstrap.min.css')}}">
+
+	<!-- Date Picker css -->
+   <link rel="stylesheet" href="{{asset('bo/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}" />
+
+   <!-- Bootstrap Date-Picker css -->
+   <link rel="stylesheet" href="{{asset('bo/assets/plugins/bootstrap-datepicker/css/bootstrap-datetimepicker.css')}}" />
+   <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/plugins/bootstrap-daterangepicker/daterangepicker.css')}}" />
+    <!-- multiselect start -->
+    <link rel="stylesheet" href="{{asset('bo/assets/plugins/select2/dist/css/select2.min.css')}}" />
+   <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/plugins/select2/css/s2-docs.css')}}"> 
+
+   <!-- Multi Select css -->
+   <link rel="stylesheet" href="{{asset('bo/assets/plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css')}}" />
+   <link rel="stylesheet" href="{{asset('bo/assets/plugins/multiselect/css/multi-select.css')}}" />
+
+    <!-- Color Picker css -->
+   <link rel="stylesheet" href="{{asset('bo/assets/plugins/spectrum/spectrum.css')}}" />
+
+   <!-- Tags css -->
+   <link rel="stylesheet" href="{{asset('bo/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')}}" />
+
+   <!-- bash syntaxhighlighter css -->
+   <link type="text/css" rel="stylesheet" href="{{asset('bo/assets/plugins/syntaxhighlighter/styles/shCoreDjango.css')}}"/>
+
+   <!-- Style.css -->
+  <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/main.css')}}">
+
+  <!-- Responsive.css-->
+  <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/responsive.css')}}">
+
+	<!--color css-->
+	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/color/color-1.min.css')}}" id="color" /><!-- multiselect end --> 
+
+
+
+  <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/main.css')}}">
+
+  <!-- Responsive.css-->
+  <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/responsive.css')}}">
+
+	<!--color css-->
+	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/color/color-1.min.css" id="color')}}" />
+
 
 {% endblock %}
 
@@ -28,15 +97,15 @@
 				</div>
 {{ form_start(userForm,{'method':'POST', 'type':'submit', 'attr':{'class':'form-horizontal form-bordered', 'id':'form-user', 'enctype':'multipart/form-data'}         }) }}
 
-                <div class="card-block">
+                {# <div class="card-block">
 
                     <div class="form-group row">
                         <label for="InputSmall" class="col-md-2 form-control-label">Small</label>
                     <div class="col-md-10"><input type="text" class="form-control form-control-sm" id="InputSmall" placeholder="form-control-sm"></div>
-                </div>
-
+                </div> #}
+                <div class="card-block">
                  <div class="form-group row">
-                    <div class="col-md-2"><label for="InputNormal">Votre Nom *</label></div>
+                        <label for="InputSmall" class="col-md-2 form-control-label"> Nom *</label>
                     <div class="col-md-10">
                      {{form_widget(userForm.username,{'attr':{
                                                              'class':"form-control",
@@ -47,10 +116,12 @@
                     }}
                                
                     </div>
-                </div>
+                 </div>
+                
+
                 
                 <div class="form-group row">
-                    <div class="col-md-2"><label for="InputNormal">Votre Prénom *</label></div>
+                        <label for="InputSmall" class="col-md-2 form-control-label">Prénom  *</label>
                     <div class="col-md-10">
                      {{form_widget(userForm.lastname,{'attr':{
                                                              'class':"form-control",
@@ -64,11 +135,11 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-md-2"><label for="InputNormal">Votre email *</label></div>
+                        <label for="InputSmall" class="col-md-2 form-control-label">Email  *</label>
                     <div class="col-md-10">
                      {{form_widget(userForm.email,{'attr':{
                                                              'class':"form-control",
-                                                              'placeholder':"email"
+                                                             'placeholder':"email"
                                                               }
 
                                      })
@@ -78,7 +149,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-md-2"><label for="InputNormal">Votre type *</label></div>
+                        <label for="" class="col-md-2 form-control-label">Genre  *</label>
                     <div class="col-md-10">
                      {{form_widget(userForm.gender,{'attr':{
                                                              'class':"form-control",
@@ -90,101 +161,54 @@
                                
                     </div>
                 </div>
-                           {# <div class="form-group row">
-                              <div class="col-md-2"><label for="InputLarge" class="form-control-label col-form-label-lg">Large</label></div>
-                              <div class="col-md-10"><input type="text" class="form-control form-control-lg" id="InputLarge" placeholder="form-control-lg"></div>
-                           </div>
-                           <div class="form-group row">
-                              <div class="col-md-2"><label for="InputLarge" class="form-control-label">Grid</label></div>
-                              <div class="col-xs-3">
-                                 <input type="text" class="form-control" placeholder=".col-xs-3">
-                              </div>
-                           </div>
-                           <div class="form-group row">
-                              <div class="col-md-2"></div>
-                              <div class="col-xs-6">
-                                 <input type="text" class="form-control" placeholder=".col-xs-6">
-                              </div>
-                           </div>
-                           <div class="form-group row">
-                              <div class="col-md-2"></div>
-                              <div class="col-xs-9">
-                                 <input type="text" class="form-control" placeholder=".col-xs-9">
-                              </div>
-                           </div> #}
+
+                <div class="form-group row">
+                        <label for="" class="col-md-2 form-control-label">Statut  *</label>
+                    <div class="col-md-10">
+                     {{form_widget(userForm.status,{'attr':{
+                                                             'class':"form-control",
+                                                              'placeholder':"statut"
+                                                              }
+
+                                     })
+                    }}
+                               
                     </div>
+                </div>
+
+                <div class="form-group row">
+                        <label for="" class="col-md-2 form-control-label">Role  *</label>
+                    <div class="col-md-10">
+                     {{form_widget(userForm.role,{'attr':{
+                                                             'class':"js-example-basic-hide-search select2-hidden-accessible",
+                                                             'style':"width: 75%",
+                                                             'tabindex':"-1",
+                                                             'aria-hidden':"true",
+                                                             'placeholder':"roles"
+                                                              }
+
+                                     })
+                    }}
+                               
+                    </div>
+                </div>
+                                    
+
+                <div class="form-group row">
+                        <label for="InputSmall" class="col-md-2 form-control-label">Image avatar  *</label>
+                    <div class="col-md-10">
+                               
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-30">Enregistrer</button>
+                           
+     </div>
 	{{ form_rest(userForm) }}
     
     {{ form_end(userForm) }} 
 
-				{# <div class="card-block">
-							<div class="row">
-								<div class="col-sm-12 table-responsive">
-									{{ form_start(userForm,{'method':'POST', 'type':'submit', 'attr':{'class':'form-horizontal form-bordered', 'id':'form-user', 'enctype':'multipart/form-data'}         }) }}
-
-                                    <div class="panel-body">
-										<div class="form-group">
-											<label class="col-md-3 control-label" for="inputPlaceholder">Nom</label>
-											<div class="col-md-6">
-												{{form_widget(userForm.username,{'attr':{
-                                                                        'class':"form-control",
-                                                                        'placeholder':"Username"
-                                                                    }
-
-                                                                    })}}
-											</div>
-										</div>
-
-                                        <div class="form-group">
-											<label class="col-md-3 control-label" for="inputPlaceholder">Prénom</label>
-											<div class="col-md-6">
-												{{form_widget(userForm.lastname,{'attr':{
-                                                                        'class':"form-control",
-                                                                        'placeholder':"votre prénom"
-                                                                    }
-
-                                                                    })}}
-											</div>
-										</div>
-
-                                        <div class="form-group">
-											<label class="col-md-3 control-label" for="inputPlaceholder">Sexe</label>
-											<div class="col-md-6">
-												{{form_widget(userForm.gender,{'attr':{
-                                                                        'class':"form-control",
-                                                                        'placeholder':"votre sexe"
-                                                                    }
-
-                                                                    })}}
-											</div>
-										</div>
-
-                                        <div class="form-group">
-											<label class="col-md-3 control-label" for="inputPlaceholder">Status</label>
-											<div class="col-md-6">
-												{{form_widget(userForm.status,{'attr':{
-                                                                        'class':"form-control",
-                                                                        'placeholder':"status"
-                                                                    }
-
-                                                                    })}}
-											</div>
-										</div>
-
-                                        <div class="form-group">
-                                                <label class="col-md-3 control-label" for="inputPlaceholder">Image Avatar</label>
-                                            <div class="col-md-6">
-                                                    {{form_widget(userForm.avatar,{'attr':{
-                                                                            'class':"form-control",
-                                                                            'placeholder':"avatar"
-                                                                        }
-
-                                                                        })}}
-                                            </div>
-			                            </div>
-			                        </div>
-			                </div>
-			    </div> #}
+				
 			</div>
 		</div>
 	</div>
@@ -195,6 +219,72 @@
 
 				{% block javascript %}
 					{{ parent() }}
+             
+             <script src="{{asset('bo/assets/plugins/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('bo/assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+    <script src="{{asset('bo/assets/plugins/tether/dist/js/tether.min.js')}}"></script>
+
+    <!-- Required Fremwork -->
+    <script src="{{asset('bo/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+
+    <!-- waves effects.js -->
+    
+    <script src="{{asset('bo/assets/plugins/Waves/waves.min.js')}}"></script>
+
+    <!-- Scrollbar JS-->
+    <script src="{{asset('bo/assets/plugins/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
+    <script src="{{asset('bo/assets/plugins/jquery.nicescroll/jquery.nicescroll.min.js')}}"></script>
+
+    <!--classic JS-->
+    <script src="{{asset('bo/assets/plugins/classie/classie.js')}}"></script>
+
+    <!-- notification -->
+    <script src="{{asset('bo/assets/plugins/notification/js/bootstrap-growl.min.js')}}"></script>
+
+   <!-- Date picker.js -->
+   <script src="{{asset('bo/assets/plugins/datepicker/js/moment-with-locales.min.js')}}"></script>
+   <script src="{{asset('bo/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js')}}"></script>
 
 
+
+<!-- Select 2 js -->
+   <script src="{{asset('bo/assets/plugins/select2/dist/js/select2.full.min.js')}}"></script>
+
+   <!-- Max-Length js -->
+   <script src="{{asset('bo/assets/plugins/bootstrap-maxlength/src/bootstrap-maxlength.js')}}"></script>
+
+   <!-- Multi Select js -->
+   <script src="{{asset('bo/assets/plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js')}}"></script>
+   <script src="{{asset('bo/assets/plugins/multiselect/js/jquery.multi-select.js')}}"></script>
+   <script type="text/javascript" src="{{asset('bo/assets/plugins/multi-select/js/jquery.quicksearch.js')}}"></script>
+
+
+
+   <!-- Tags js -->
+   <script src="{{asset('bo/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.js')}}"></script>
+
+   <!-- Bootstrap Datepicker js -->
+    <script type="text/javascript" src="{{asset('bo/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
+
+    <!-- bootstrap range picker -->
+    <script type="text/javascript" src="{{asset('bo/assets/plugins/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+
+      <!-- color picker -->
+   <script type="text/javascript" src="{{asset('bo/assets/plugins/spectrum/spectrum.js')}}"></script>
+   <script type="text/javascript" src="{{asset('bo/assets/plugins/jscolor/jscolor.js')}}"></script>
+
+   <!-- highlite js -->
+   <script type="text/javascript" src="{{asset('bo/assets/plugins/syntaxhighlighter/scripts/shCore.js')}}"></script>
+   <script type="text/javascript" src="{{asset('bo/assets/plugins/syntaxhighlighter/scripts/shBrushJScript.js')}}"></script>
+   <script type="text/javascript" src="{{asset('bo/assets/plugins/syntaxhighlighter/scripts/shBrushXml.js')}}"></script>
+   <script type="text/javascript">SyntaxHighlighter.all();</script>
+
+   <!-- custom js -->
+   <script type="text/javascript" src="{{asset('bo/assets/js/main.min.js')}}"></script>
+   <script type="text/javascript" src="{{asset('bo/assets/pages/advance-form.js')}}"></script>
+   <script src="{{asset('bo/assets/js/menu.min.js')}}"></script>
+	<script type="text/javascript">
+		SyntaxHighlighter.all();
+	</script>
 				{% endblock %}

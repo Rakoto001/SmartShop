@@ -20,10 +20,15 @@ class IndexController extends AbstractController
      */
     public function baseMain()
     {
+        $page = 'Menu';
+        $action = '';
         $annonce = $this->articleService->findOne(27);
-        // dd('ici');
 
-        return $this->render('back/main.html.twig');
+        return $this->render('back/main.html.twig',  [
+                                                        'page'   => $page,
+                                                        'action' => $action,
+                                                     ]
+                            );
     }
 
 }
