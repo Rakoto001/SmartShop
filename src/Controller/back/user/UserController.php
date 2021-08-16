@@ -3,9 +3,11 @@
 namespace App\Controller\back\user;
 
 use App\Entity\User;
+use App\Entity\Roles;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -33,34 +35,35 @@ class UserController extends AbstractController
     public function userCreate(Request $request, EntityManagerInterface $manager)
     {
         $user     = new User;
+        $userRole = new Roles;
         $page     = 'Utilisateur';
         $action   = 'Création';
         //par défaut
-        $user->setAvatar('nnom.jpg');
+        $role = new Roles;
+
+        $user->setAvatar('avatarExample.jpg');
         $user->setPassword('123456');
         $userForm = $this->createForm(UserType::class, $user);
         $userForm->handleRequest($request);
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
-            dd($user);
-                    // try {
-            //     $manager->persist($user);
-            //     $manager->flush();
-            //     // $userService->userRegistration($params);
- 
-            //  } catch(\Doctrine\DBAL\DBALException $e)
-            //  {
-            //      //gestion erreur quand le email ou username est déjà utilisé
-            //      $this->addFlash('error', 'utilisateur dejà existant');
-            //      return $this->redirectToRoute('admin_user_create');
-            //  }
-
+            $allDatas = $request->request->get('user');
+            $roles = $allDatas['role'];
+            foreach($roles  as $role){
+                $userRole->setTitle($role)
+                         ->setUsers($user);
+                $manager->persist($userRole);
+            }
+            
              try {
                 $manager->persist($user);
                 $manager->flush();
             } catch (\Throwable $error) {
                 dd($error);
             }
+            $this->addFlash('success', 'Utilisateur ajouté');
+
+            return $this->redirectToRoute('admin_user_list');
         }
 
         return $this->render('back/user/user-action.html.twig', [
