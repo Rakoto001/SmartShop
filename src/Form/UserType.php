@@ -3,12 +3,14 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\RoleType;
 use App\Services\UserService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class UserType extends AbstractType
 {
@@ -28,15 +30,17 @@ class UserType extends AbstractType
                                                 'choices' => array_flip(UserService::GENDER),
                                                 // 'mapped'  => false,
                                                  ])
-            ->add('role', ChoiceTYpe::class, [
-                                                'choices' => array_flip([
-                                                                            'ROLE_USER'  => 'UTILISATEUR',
-                                                                            'ROLE_ADMIN' => 'ADMINISTRATEUR'
-                                                            ]),
-                                                'multiple' => true,
-                                                'mapped'  => false,
-                                             ])
+            ->add('role', ChoiceType::class, [
+                                                    'choices' => array_flip([
+                                                                                'ROLE_USER'  => 'UTILISATEUR',
+                                                                                'ROLE_ADMIN' => 'ADMINISTRATEUR'
+                                                                ]),
+                                                    'multiple' => true,
+                                                    'mapped'  => false,
+                 ])
             ->add('lastname');
+
+        
     }
 
     public function configureOptions(OptionsResolver $resolver)
