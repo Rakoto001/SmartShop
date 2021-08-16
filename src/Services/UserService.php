@@ -11,8 +11,14 @@ class UserService extends BaseService
     public const M = 'Homme';
     public const F = 'Femme';
     public const GENDER = [
-                            'Masculin' => self::M,
-                            'Féminin'  => self::F,
+                             'Male' => 'Masculin', 
+                             'Female' =>  'Féminin',
+                            ];
+    public const ACTIVE = 1;
+    public const DESACTIVE = 0;
+    public const STATUS = [ 
+                             self::ACTIVE => 'activated' ,
+                             self::DESACTIVE => 'desactivated',
     ];
 
    public function __construct(EntityManagerInterface $_manager)

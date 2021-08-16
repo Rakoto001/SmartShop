@@ -58,6 +58,7 @@
 
 			<!-- Responsive.css-->
 			<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/responsive.css')}}">
+			
 		{% endblock %}
 	</head>
 
@@ -182,6 +183,8 @@
 			<script type="text/javascript" src="{{asset('bo/assets/pages/dashboard.js')}}"></script>
 			<script type="text/javascript" src="{{asset('bo/assets/pages/elements.js')}}"></script>
 			<script src="{{asset('bo/assets/js/menu.min.js')}}"></script>
+			<link rel="stylesheet" href="{{asset('fo/assets/pnotify/pnotify.custom.css')}}" />
+    		<script src="{{ asset('fo/assets/pnotify/pnotify.custom.js')}}"></script>
 			<script>
 				var $window = $(window);
 var nav = $('.fixed-button');
@@ -195,6 +198,28 @@ nav.removeClass('active');
 			</script>
 
 		{% endblock %}
+
+		<script>
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                new PNotify({
+                    title: 'Notification',
+                    type: 'success',
+                    text: "{{ flashMessage }}",
+                    animation: "fade",
+                    delay: 2000,
+                });
+            {% endfor %}
+
+             {% for flashMessage in app.session.flashbag.get('error') %}
+                new PNotify({
+                    title: 'Notification',
+                    type: 'error',
+                    text: "{{ flashMessage }}",
+                    animation: "fade",
+                    delay: 2000,
+                });
+            {% endfor %}
+        </script>
 
 	</body>
 
