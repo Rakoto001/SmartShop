@@ -34,7 +34,7 @@ class AppFixtures extends Fixture
 
         // $user = $this->articleService->findOne(5);
         // dd($user);
-        $number = 10;
+        $number = 12;
         $password = '123456';
         $faker = Factory::create('FR:fr');
         $user =  new User();
@@ -75,7 +75,7 @@ class AppFixtures extends Fixture
         //for roles 
         for($fakeRole=1; $fakeRole<10; $fakeRole++){
             $role = new Roles;
-            $role->setUsers($users[mt_rand(0,8)])
+            $role->setUsers($users[$fakeRole])
 
                  ->setTitle('ROLE_USER');
             $manager->persist($role);
