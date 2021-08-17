@@ -25,6 +25,9 @@ abstract class BaseService
      return $this->getRepository()->findAll();
    }
 
+   /**
+    * save obj
+    */
    public function save($_object)
    {
      $this->manager->persist($_object);

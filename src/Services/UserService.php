@@ -2,12 +2,22 @@
 namespace App\Services;
 
 use App\Entity\User;
+use App\Entity\Roles;
 use App\Services\BaseService;
+use Psr\Container\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserService extends BaseService
 {
-    private $manager;
+    protected $manager;
+    private $kernel;
+    private $container;
+    private $upload;
+    private $encoder;
+
     public const M = 'Homme';
     public const F = 'Femme';
     public const GENDER = [
@@ -21,9 +31,20 @@ class UserService extends BaseService
                              self::DESACTIVE => 'desactivated',
     ];
 
-   public function __construct(EntityManagerInterface $_manager)
+
+
+   public function __construct(EntityManagerInterface $_manager,
+                               KernelInterface  $_kernel,
+                               ContainerInterface $_container,
+                               UploadService $_upload,
+                               UserPasswordEncoderInterface $_encoder
+                               )
    {
-       $this->manager = $_manager;
+       $this->manager   = $_manager;
+       $this->kernel    = $_kernel;
+       $this->container = $_container;
+       $this->upload    = $_upload;
+       $this->encoder   = $_encoder;
    }
    
    /**
@@ -32,6 +53,66 @@ class UserService extends BaseService
    public function getRepository()
    {
        return $this->manager->getRepository(User::class);
+   }
+
+   /**
+    * check user for registratin of for update
+    */
+   public function checkUser($_parametters)
+   {
+        $user = new User;
+        $projectDir = $this->kernel->getProjectDir();
+        $userImagePath = $this->container->get('kernel')->getRootDir();
+        $uploadPaht = $this->container->getParameter('user_avatar_upload_path');
+        $path = $projectDir.$uploadPaht;
+        unset($_parametters['_token']);
+        $userName    = $_parametters['username'];
+        $lastName    = $_parametters['lastname'];
+        $email       = $_parametters['email'];
+        $gender      = $_parametters['gender'];
+        $status      = $_parametters['status'];
+        $roles       = $_parametters['role'];
+        $imageAvatar = $_parametters['userAvatar'];
+
+        $password = isset($_parametters['password']) ? $_parametters['password'] : '123456';
+
+        //traitement pour le userAvatar
+        $this->upload->makePath($path);
+        if (isset($imageAvatar) && !empty($imageAvatar)) {
+            $fileName = $this->upload->upload($path, 'userAvatar');
+            $user->setAvatar($fileName);
+        }
+
+        $user->setUsername($userName)
+             ->setLastname($lastName)
+             ->setEmail($email)
+             ->setGender($gender)
+             ->setStatus($status)
+             ->setPassword($this->encoder->encodePassword($user, $password));
+        foreach($roles  as $role){
+            $userRole = new Roles;
+            $userRole->setTitle($role)
+                     ->setUsers($user);
+            $this->manager->persist($userRole);                                                                                  
+        }
+
+       
+        $this->save($user);
+
+        return $user;
+
+
+       
+
+        // $this->upload->upload(())
+            /**
+         * Grâce aux dépendances de câblage automatique de Symfony 4, i
+         * l sera automatiquement injecté dans votre classe et vous pourrez y accéder en faisant :
+         * $this->appKernel->getProjectDir();
+         */
+
+        
+       
    }
 
    /**
@@ -59,9 +140,9 @@ class UserService extends BaseService
         $params =[];
        foreach($listUsers as $user){
            $params[]  = [ $user->getAvatar(),
-                        $user->getUsername(),
-                         $user->getGender(),
-                        $user->getStatus(),
+                          $user->getUsername(),
+                          $user->getGender(),
+                          $user->getStatus(),
                             'delete',
                         ];
             
