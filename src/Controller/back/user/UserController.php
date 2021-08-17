@@ -5,6 +5,7 @@ namespace App\Controller\back\user;
 use App\Entity\User;
 use App\Entity\Roles;
 use App\Form\UserType;
+use App\Services\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Role\Role;
@@ -16,6 +17,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class UserController extends AbstractController
 {
+    private $userService;
+
+    public function __construct(UserService $_userService)
+    {
+        $this->userService = $_userService;
+    }
     /**
      * @Route("/list", name="admin_user_list")
      */
@@ -35,7 +42,6 @@ class UserController extends AbstractController
     public function userCreate(Request $request, EntityManagerInterface $manager)
     {
         $user     = new User;
-        $userRole = new Roles;
         $page     = 'Utilisateur';
         $action   = 'Création';
         //par défaut
@@ -48,16 +54,12 @@ class UserController extends AbstractController
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
             $allDatas = $request->request->get('user');
-            $roles = $allDatas['role'];
-            foreach($roles  as $role){
-                $userRole->setTitle($role)
-                         ->setUsers($user);
-                $manager->persist($userRole);
-            }
+            $allFiles = $request->files->get('userAvatar');
+            $allDatas['userAvatar'] = $allFiles;
             
-             try {
-                $manager->persist($user);
-                $manager->flush();
+            try {
+                 $this->userService->checkUser($allDatas);
+
             } catch (\Throwable $error) {
                 dd($error);
             }
