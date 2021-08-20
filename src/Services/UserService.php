@@ -8,6 +8,7 @@ use Psr\Container\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserService extends BaseService
@@ -17,6 +18,8 @@ class UserService extends BaseService
     private $container;
     private $upload;
     private $encoder;
+    private $router;
+    private $roleService;
 
     public const M = 'Homme';
     public const F = 'Femme';
@@ -37,14 +40,18 @@ class UserService extends BaseService
                                KernelInterface  $_kernel,
                                ContainerInterface $_container,
                                UploadService $_upload,
-                               UserPasswordEncoderInterface $_encoder
+                               UserPasswordEncoderInterface $_encoder,
+                               UrlGeneratorInterface $_router,
+                               RoleService $_roleService
                                )
    {
-       $this->manager   = $_manager;
-       $this->kernel    = $_kernel;
-       $this->container = $_container;
-       $this->upload    = $_upload;
-       $this->encoder   = $_encoder;
+       $this->manager     = $_manager;
+       $this->kernel      = $_kernel;
+       $this->container   = $_container;
+       $this->upload      = $_upload;
+       $this->encoder     = $_encoder;
+       $this->router      = $_router;
+       $this->roleService = $_roleService;
    }
    
    /**
@@ -66,6 +73,7 @@ class UserService extends BaseService
         $uploadPaht = $this->container->getParameter('user_avatar_upload_path');
         $path = $projectDir.$uploadPaht;
         unset($_parametters['_token']);
+        $id          = isset($_parametters['id']) ? $_parametters['id'] : '0';
         $userName    = $_parametters['username'];
         $lastName    = $_parametters['lastname'];
         $email       = $_parametters['email'];
@@ -73,9 +81,12 @@ class UserService extends BaseService
         $status      = $_parametters['status'];
         $roles       = $_parametters['role'];
         $imageAvatar = $_parametters['userAvatar'];
-
         $password = isset($_parametters['password']) ? $_parametters['password'] : '123456';
-
+        if (!empty($id)) {
+            $user  = $this->findOne($id);
+            $roles = $this->roleService->getRole($id);
+            // dd($roles);
+        }
         //traitement pour le userAvatar
         $this->upload->makePath($path);
         if (isset($imageAvatar) && !empty($imageAvatar)) {
@@ -96,7 +107,6 @@ class UserService extends BaseService
             $this->manager->persist($userRole);                                                                                  
         }
 
-       
         $this->save($user);
 
         return $user;
@@ -139,11 +149,25 @@ class UserService extends BaseService
         */
         $params =[];
        foreach($listUsers as $user){
-           $params[]  = [ $user->getAvatar(),
+            // pour l'avatar
+           if (empty($user->getAvatar())) {
+               $imageAvatar = '<img class="img-circle " src="/bo/upload/avatar_default.png" style="width:40px;" alt="User Image">';
+             } else {
+              $imageAvatar = '<img class="img-circle " src="/upload/bo/user/'.$user->getAvatar().'" style="width:40px;" alt="User Image">';
+             }
+            //btnAction delete 
+            $id = $user->getId();
+            // $this->router->generate('admin_delete_user', $id);
+            $btnEdit   = '<a href="'.$this->router->generate('admin_user_edit', ['id' => $id]).'"><i class="ti-pencil-alt"></i> </a>';
+            $btnDelete = '<a href="'.$this->router->generate('admin_delete_user', ['id' => $id]).'"><i class="ti-trash"></i> </a>';
+            $btnAction = $btnEdit.$btnDelete;
+            $params[]  = [
+                          $imageAvatar,
+                          // $user->getAvatar(),
                           $user->getUsername(),
                           $user->getGender(),
                           $user->getStatus(),
-                            'delete',
+                          $btnAction,
                         ];
             
        } 

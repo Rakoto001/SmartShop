@@ -24,7 +24,7 @@ class UserAjaxController extends AbstractController
     public function userList(Request $request)
     {
         $allParametters = $request->request->all();
-        // dd($allParametters); 
+        dump($allParametters); 
         $parametters['order']  = $allParametters['order'];
         $parametters['start']  = $allParametters['start'];
         $parametters['length'] = $allParametters['length'];
@@ -41,8 +41,18 @@ class UserAjaxController extends AbstractController
         return new JsonResponse([
                                     'data'            => $users, 
                                     'recordsTotal'    => $lengh,
-                                    'recordsFiltered' => $total,
-                                    'draw'            => $draw,
+                                    // 'recordsFiltered' => $total,
+                                    // 'draw'            => $draw,
                                 ]);
     }
+
+    /**
+     * @Route("/delete/{id}", name="admin_delete_user")
+     */
+    public function deleteUser($id)
+    {
+        dd($id);
+    }
+
+    
 }
