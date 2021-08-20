@@ -88,7 +88,7 @@ class UserController extends AbstractController
         $user = $this->userService->findOne($id);
         $roles = $this->role->getRole($id);
         foreach($roles as $tmp_role){
-        $role[] = $tmp_role['title'];
+        $role[] = $tmp_role->getTitle();
 
         }
         // $user->setRoles
@@ -109,7 +109,7 @@ class UserController extends AbstractController
             } catch (\Throwable $error) {
                 dd($error);
             }
-            $this->addFlash('success', 'Utilisateur ajouté');
+            $this->addFlash('success', 'Modification effectuée');
 
             return $this->redirectToRoute('admin_user_list');
         }

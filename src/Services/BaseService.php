@@ -34,4 +34,14 @@ abstract class BaseService
 
      return $this->manager->flush();
    }
+
+   /**
+    * delete object
+    */
+   public function removeDatas($_object)
+   {
+     $this->manager->remove($_object);
+
+     return $this->manager->flush();
+   }
 }

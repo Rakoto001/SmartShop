@@ -82,16 +82,16 @@ class UserService extends BaseService
         $roles       = $_parametters['role'];
         $imageAvatar = $_parametters['userAvatar'];
         $password = isset($_parametters['password']) ? $_parametters['password'] : '123456';
-        if (!empty($id)) {
-            $user  = $this->findOne($id);
-            $roles = $this->roleService->getRole($id);
-            // dd($roles);
-        }
+       
         //traitement pour le userAvatar
         $this->upload->makePath($path);
-        if (isset($imageAvatar) && !empty($imageAvatar)) {
+        if (isset($imageAvatar) && !empty($imageAvatar) && $imageAvatar != null) {
             $fileName = $this->upload->upload($path, 'userAvatar');
             $user->setAvatar($fileName);
+        }
+        //si user existe déjà
+        if (!empty($id)) {
+           return $this->makeEditUser($id, $roles);
         }
 
         $user->setUsername($userName)
@@ -110,19 +110,52 @@ class UserService extends BaseService
         $this->save($user);
 
         return $user;
-
-
-       
-
         // $this->upload->upload(())
             /**
          * Grâce aux dépendances de câblage automatique de Symfony 4, i
          * l sera automatiquement injecté dans votre classe et vous pourrez y accéder en faisant :
          * $this->appKernel->getProjectDir();
          */
+   }
 
-        
-       
+   /**
+    * edit user and save
+    */
+   public function makeEditUser($id, $roles)
+   {
+        $user  = $this->findOne($id);
+        $objRoles = $this->roleService->getRole($id);
+        if (count($roles)>1 && count($objRoles)>1) {
+            foreach($objRoles as $key => $newRole){
+                if ($newRole->getTitle() != $roles[$key]) {
+                        $newRole->setTitle($roles);
+                    }
+                } 
+            $this->save($newRole);
+
+        } elseif(count($objRoles)>1 && count($roles)==1) {
+            //SUPRIME l'un
+            $this->removeDatas($objRoles[0]);
+            //    mofifie l'autre
+            $newRole = $objRoles[1]->setTitle($roles[0]);
+            $this->save($newRole);
+
+        } elseif(count($objRoles) == 1 && count($roles) == 1){
+            $newRole = $objRoles[0]->setTitle($roles[0]);
+
+            $this->save($newRole);
+
+        } elseif(count($objRoles) == 1 && count($roles) > 1){
+            $newRole = $objRoles[0]->setTitle($roles[0]);
+            $this->save($newRole);
+            $newRole = new Roles;
+            $newRole->setTitle($roles[1])
+                    ->setUsers($user);
+            $this->save($newRole);
+        }
+
+
+        return $this->save($user);
    }
 
    /**

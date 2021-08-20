@@ -24,18 +24,15 @@ class RolesRepository extends ServiceEntityRepository
      */
     public function findAllRoles($_id)
     {
+        $query = $this->createQueryBuilder('r')
+                      ->leftJoin('r.users', 'u')
+                      ->addSelect('u')
+                      ->where('u.id = :id')
+                      ->setParameter('id', $_id)
+                      ->getQuery()
+                      ->getResult();
 
-        $connexion = $this->getEntityManager()->getConnection();
-        $sql = "
-        SELECT title FROM `roles`
-        WHERE users_id =$_id
-        
-        ";
-        $statement = $connexion->prepare($sql);
-        $statement->execute();
-        $results = $statement->fetchAll();
-
-        return $results;
+        return $query;
     }
 
     // /**

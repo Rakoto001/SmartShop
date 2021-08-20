@@ -65,6 +65,21 @@ class UserRepository extends ServiceEntityRepository
         return $_query;
     }
 
+    public function findUserAndRole($_id)
+    {
+        $connexion = $this->getEntityManager()->getConnection();
+        $sql = "
+        SELECT * FROM `user` 
+        JOIN roles on roles.users_id=user.id  
+        WHERE user.id =$_id
+        
+        ";
+        $statement = $connexion->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        dd($results);
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
