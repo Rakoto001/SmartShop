@@ -83,16 +83,17 @@ class UserService extends BaseService
         $imageAvatar = $_parametters['userAvatar'];
         $password = isset($_parametters['password']) ? $_parametters['password'] : '123456';
        
-        //traitement pour le userAvatar
-        $this->upload->makePath($path);
-        if (isset($imageAvatar) && !empty($imageAvatar) && $imageAvatar != null) {
-            $fileName = $this->upload->upload($path, 'userAvatar');
-            $user->setAvatar($fileName);
-        }
         //si user existe déjà
         if (!empty($id)) {
-           return $this->makeEditUser($id, $roles);
+           return $this->makeEditUser($id, $roles, $path, $imageAvatar);
         }
+
+         //traitement pour le userAvatar
+         $this->upload->makePath($path);
+         if (isset($imageAvatar) && !empty($imageAvatar)) {
+             $fileName = $this->upload->upload($path, 'userAvatar');
+             $user->setAvatar($fileName);
+         }
 
         $user->setUsername($userName)
              ->setLastname($lastName)
@@ -121,9 +122,15 @@ class UserService extends BaseService
    /**
     * edit user and save
     */
-   public function makeEditUser($id, $roles)
+   public function makeEditUser($id, $roles, $path, $imageAvatar)
    {
         $user  = $this->findOne($id);
+        //traitement pour le userAvatar
+         $this->upload->makePath($path);
+         if (isset($imageAvatar) && !empty($imageAvatar)) {
+             $fileName = $this->upload->upload($path, 'userAvatar');
+             $user->setAvatar($fileName);
+         }
         $objRoles = $this->roleService->getRole($id);
         if (count($roles)>1 && count($objRoles)>1) {
             foreach($objRoles as $key => $newRole){
@@ -153,7 +160,6 @@ class UserService extends BaseService
                     ->setUsers($user);
             $this->save($newRole);
         }
-
 
         return $this->save($user);
    }
