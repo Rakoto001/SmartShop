@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block stylesheet %}
-					{{ parent() }}
 
     <!-- Favicon icon -->
 	<link rel="shortcut icon" href="{{asset('bo/assets/images/favicon.png')}}" type="image/x-icon">
@@ -90,10 +89,14 @@
 				{# <section class="panel"> #}
 					
 				<div class="card-header">
-							<h5 class="card-header-text">Hover Effects on Row</h5>
-							<p>Add
-								<code>.table-hover</code>
-								Class in table tag</p>
+                {% if action == 'Création' %}
+							<h5 class="card-header-text">Ajout</h5>
+                {% elseif action == 'Edition' %}
+							<h5 class="card-header-text">Modification</h5>
+
+                {% endif %}
+                
+							<p></p>
 				</div>
 {{ form_start(userForm,{'method':'POST', 'type':'submit', 'attr':{'class':'form-horizontal form-bordered', 'id':'form-user', 'enctype':'multipart/form-data'}         }) }}
 
@@ -219,7 +222,6 @@
 				{% endblock %}
 
 				{% block javascript %}
-					{{ parent() }}
              
              <script src="{{asset('bo/assets/plugins/jquery/dist/jquery.min.js')}}"></script>
     <script src="{{asset('bo/assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
