@@ -4,13 +4,18 @@ namespace App\Services;
 use App\Entity\Articles;
 use App\Services\BaseService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ArticleService extends BaseService
 {
     private $manager;
-   public function __construct(EntityManagerInterface $_manager)
+    private $_router;
+    
+   public function __construct(EntityManagerInterface $_manager,
+                              UrlGeneratorInterface $_router) 
    {
        $this->manager = $_manager;
+       $this->router  = $_router;
    }
    
    /**
@@ -56,6 +61,68 @@ class ArticleService extends BaseService
         return  $article;
        
     }
+
+    /**
+     * list articles from database
+     */
+    public function listAllArticles(array $_parametters)
+    {
+        $listArticles = $this->getArticles($_parametters)->getResult();
+        /*
+                       <th>Logo</th>
+												<th>Nom</th>
+												<th>Contenu</th>
+												<th>Status</th>
+												<th>Action</th>
+         */
+         $params =[];
+        foreach($listArticles as $article){
+             // pour l'avatar
+            if (empty($article->getCoverImage())) {
+                $imageCover = '<img class="img-circle " src="/bo/upload/avatar_default.png" style="width:40px;" alt="User Image">';
+              } else {
+                $imageCover = '<img class="img-circle " src="/upload/bo/user/'.$article->getCoverImage().'" style="width:40px;" alt="User Image">';
+              }
+             //btnAction delete 
+             $id = $article->getId();
+             // $this->router->generate('admin_delete_user', $id);
+             $btnEdit   = '<a href="'.$this->router->generate('admin_article_edit', ['id' => $id]).'"><i class="ti-pencil-alt"></i> </a>';
+             $btnDelete = '<a href="'.$this->router->generate('admin_article_delete', ['id' => $id]).'"><i class="ti-trash"></i> </a>';
+             $btnAction = $btnEdit.$btnDelete;
+             $params[]  = [
+                           $imageCover,
+                           // $user->getAvatar(),
+                           $article->getName(),
+                           $article->getContent(),
+                           $article->getStatus(),
+                           $btnAction,
+                         ];
+             
+        } 
+   
+        return [
+                 'datas'  => $params,
+                 'length' => count($listArticles)
+               ];
+
+    }
+
+    /**
+    * get all articles from database
+    */
+   public function getArticles($_parametters)
+   {
+       $limit   = $_parametters['length'];
+       $offset  = $_parametters['start'];
+       $offset  = $_parametters['start'];
+
+       $query   = $this->getRepository()->setLimit($limit, $offset);
+       $query   = $this->getRepository()->makeSearch($_parametters, $query);
+       $query   = $this->getRepository()->makeOrder($query);
+       $results = $query->getQuery();
+
+       return $results;
+   }
 
 
 
