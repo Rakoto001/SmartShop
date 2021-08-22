@@ -76,6 +76,48 @@ class ArticlesRepository extends ServiceEntityRepository
         return $results;
     }
 
+
+
+
+    /**
+     * set the maxResult to 10 by the criterias
+     */
+    public function setLimit($limit, $offset)
+    {
+
+        $query = $this->createQuery()
+                    ->setMaxResults($limit)
+                    ->setFirstResult($offset);
+        
+        return $query;
+        
+    }
+
+    /**
+     * make order by
+     */
+    public function makeOrder($_query)
+    {
+        $query = $_query->orderBy('a.id', 'ASC');
+
+        return $query;
+    }
+
+    /**
+     * make search if key exists
+     */
+    public function makeSearch($_parametters, $_query)
+    {
+        // dd($_parametters['search']);
+        if (array_key_exists('search',$_parametters) && !empty($_parametters['search']['value'])) {
+            $result = $_query->where('a.content LIKE :content')
+                             ->setParameter('content', $_parametters['search']['value'].'%');
+
+            return $result;
+        }
+
+        return $_query;
+    }
     // /**
     //  * @return Articles[] Returns an array of Articles objects
     //  */
