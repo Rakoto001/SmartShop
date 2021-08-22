@@ -1,0 +1,76 @@
+{% extends "back/base-bo.html.twig" %}
+
+
+{% block title %}
+	Article - Liste
+{% endblock %}
+
+{% block stylesheet %}
+	{{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bo/assets/mondatatable/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
+
+{% endblock %}
+
+{% block breadcrumbs %}
+	{% include ('back/common/breadcrumbs.html.twig') %}
+{% endblock %}
+
+{% block body %}
+
+	<section class="panel">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a href="#" class="fa fa-caret-down"></a>
+                <a href="#" class="fa fa-times"></a>
+            </div>
+
+            <h2 class="panel-title">Liste</h2>
+           
+        </header>
+       <div class="card">
+						<div class="card-header">
+							<h5 class="card-header-text">Liste des Articles</h5>
+							<p> </p>
+						</div>
+						<div class="card-block">
+							<div class="row">
+								<div class="col-sm-12 table-responsive">
+									<table class="table table-bordered table-striped mb-none" 
+										   id="article-list-datatable" 
+										   page="article" 
+										   user=""
+										   ajax-url="{{ path('admin_article_ajax_list') }}">
+										<thead>
+											<tr>
+												<th>Logo</th>
+												<th>Nom</th>
+												<th>Contenu</th>
+												<th>Status</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+       
+
+    </section>
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+
+     <script src="{{ asset('bo/assets/mondatatable/datatables.js') }}"></script>
+     <script src="{{ asset('bo/assets/mondatatable/dataTables.min.js') }}"></script>
+     <script src="{{ asset('bo/assets/mondatatable/dataTables.bootstrap4.min.js') }}"></script>
+     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+
+ 
+     <script src="{{asset('bo/js/article.js')}}"></script>
+
+   
+{% endblock %}

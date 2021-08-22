@@ -9,6 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
+/**
+ * @Route("/admin/article")
+ */
 class ArticleController extends AbstractController
 {
     protected $articleService;
@@ -18,15 +21,16 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/admin/article/list", name="article_list")
+     * @Route("/list", name="admin_article_list")
      */
-    public function listFront()
+    public function listArticle()
     {
-        // $articles = $this->articleService->listAllArticles();
-        $articles = $this->articleService->listAllArticles();
-
-        return $this->render('back/article/list.html.twig', [
-                                                            'articles' => $articles,
+        $page     = 'Article';
+        $action   = 'Liste'; 
+        return $this->render('back/article/article-list.html.twig', [
+                                                                        'page'   => $page,
+                                                                        'action' => $action,
+                                                            
         ]);
         
     }

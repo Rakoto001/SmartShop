@@ -1,27 +1,19 @@
 <?php
 
-namespace App\Controller\back\user;
+namespace App\Controller\back\article;
 
-use App\Services\UserService;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/user")
- */
-class UserAjaxController extends AbstractController
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+class ArticleAjaxController extends AbstractController
 {
-    private $userService;
-
-    public function __construct(UserService $_userService) {
-        $this->userService = $_userService;
-    }
     /**
-     * @Route("/ajax/list", name="admin_user_ajax_list")
+     * @Route("/admin/article-ajax-list", name="admin_article_ajax_list")
      */
-    public function userList(Request $request)
+    public function listArticleData(Request $request)
     {
         $allParametters = $request->request->all();
         $parametters['order']  = $allParametters['order'];
@@ -31,10 +23,10 @@ class UserAjaxController extends AbstractController
         $parametters['page']   = $allParametters['page'];
         $draw      = $allParametters['draw'];
         //liste al users from database to json
-        $listUsers = $this->userService->listAllUsers($parametters);
-        $total     = count($listUsers);
-        $users = $listUsers['datas'];
-        $lengh = $listUsers['length'];
+        $listArticles = $this->userService->listAllArticles($parametters);
+        // $total     = count($listUsers);
+        // $users = $listUsers['datas'];
+        // $lengh = $listUsers['length'];
 
 
         return new JsonResponse([
@@ -43,15 +35,7 @@ class UserAjaxController extends AbstractController
                                     // 'recordsFiltered' => $total,
                                     // 'draw'            => $draw,
                                 ]);
-    }
 
-    /**
-     * @Route("/delete/{id}", name="admin_delete_user")
-     */
-    public function deleteUser($id)
-    {
-        dd($id);
+        
     }
-
-    
 }
