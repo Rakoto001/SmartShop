@@ -3,19 +3,40 @@ namespace App\Services;
 
 use App\Entity\Articles;
 use App\Services\BaseService;
+use App\Services\UploadService;
+use Psr\Container\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ArticleService extends BaseService
 {
-    private $manager;
+    protected $manager;
     private $_router;
+    private $kernel;
+    private $container;
+    private $upload;
+
+
+    public const ACTIVATE      = 'Activé';
+    public const DESACTIVATE   = 'Desactivé';
+    public const STATUS_OPTION = [
+                                    '1'    => self::ACTIVATE,
+                                    '0' => self::DESACTIVATE,
+    ];
+
     
    public function __construct(EntityManagerInterface $_manager,
-                              UrlGeneratorInterface $_router) 
+                               UrlGeneratorInterface $_router,
+                               KernelInterface $_kernel,
+                               ContainerInterface $_container,
+                               UploadService $_upload) 
    {
        $this->manager = $_manager;
        $this->router  = $_router;
+       $this->kernel  = $_kernel;
+       $this->container = $_container;
+       $this->upload = $_upload;
    }
    
    /**
@@ -63,6 +84,26 @@ class ArticleService extends BaseService
     }
 
     /**
+     * add or edit article
+     */
+    public function checkArticle($_parametters)
+    {
+        $projectDir = $this->kernel->getProjectDir();
+        $articleUploadPath = $this->container->getParameter('article_cover_upload_path');
+        $path = $projectDir.$articleUploadPath;
+        $coverImage = $_parametters['coverImage'];
+         //traitement pour le userAvatar
+         $this->upload->makePath($path);
+         if (isset($coverImage) && !empty($coverImage)) {
+             $fileName = $this->upload->upload($path, 'coverImage');
+            //  $user->setAvatar($fileName);
+
+            return $fileName;
+         }
+        
+    }
+
+    /**
      * list articles from database
      */
     public function listAllArticles(array $_parametters)
@@ -81,7 +122,7 @@ class ArticleService extends BaseService
             if (empty($article->getCoverImage())) {
                 $imageCover = '<img class="img-circle " src="/bo/upload/avatar_default.png" style="width:40px;" alt="User Image">';
               } else {
-                $imageCover = '<img class="img-circle " src="/upload/bo/user/'.$article->getCoverImage().'" style="width:40px;" alt="User Image">';
+                $imageCover = '<img class="img-circle " src="/upload/bo/article/'.$article->getCoverImage().'" style="width:40px;" alt="User Image">';
               }
              //btnAction delete 
              $id = $article->getId();
@@ -122,6 +163,23 @@ class ArticleService extends BaseService
        $results = $query->getQuery();
 
        return $results;
+   }
+
+   /**
+    * delete article object
+    */
+   public function remove($_object)
+   {
+       $projectDir = $this->kernel->getProjectDir();
+       $articleUploadPath = $this->container->getParameter('article_cover_upload_path');
+       $coverImage = $_object->getCoverImage();
+
+       $fileContent = $projectDir.$articleUploadPath.'/'.$coverImage;
+       if (file_exists($fileContent)) {
+          unlink($fileContent);
+       }
+       
+       return $this->removeDatas($_object);
    }
 
 
