@@ -48,8 +48,11 @@ class ArticleAjaxController extends AbstractController
     /**
      * @Route("/delete/{id}", name="admin_article_delete")
      */
-    public function remove()
+    public function remove($id, Request $request)
     {
-        
+       $article = $this->articleService->findOne($id);
+       $this->articleService->remove($article);
+
+       return $this->redirectToRoute('admin_article_list');
     }
 }

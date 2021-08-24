@@ -48,6 +48,14 @@ class CategoryService extends BaseService
       return $this->getRepository()->findAllArticlesByCategId($_id);
    }
 
+   /**
+    * get the category actif
+    */
+   public function getActifCategory($_status)
+   {
+      return $this->getRepository()->findAllActif($_status);
+   }
+
 
 
   

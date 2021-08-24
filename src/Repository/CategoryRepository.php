@@ -19,6 +19,10 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+    public function createQuery()
+    {
+       return $this->createQueryBuilder('c');
+    }
     /**
      * find all articles by ceteg id
      */
@@ -38,6 +42,23 @@ class CategoryRepository extends ServiceEntityRepository
         return $results;
     }
     
+    public function findAllActif($_status)
+    {
+        // $query = $this->getEntityManager()->getConnection();
+        // $sql = "
+        // SELECT * FROM category WHERE category.status=$_status";
+        // $statement = $query->prepare($sql);
+        // $statement->execute();
+        // $results = $statement->fetchAll();
+
+        return  $qb = $this->createQuery()
+
+                  ->andWhere('c.status = :status')
+                  ->setParameter('status', $_status)
+                  ->getQuery()
+                  ->getResult();
+        
+    }
 
     // /**
     //  * @return Category[] Returns an array of Category objects

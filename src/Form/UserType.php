@@ -22,7 +22,6 @@ class UserType extends AbstractType
             ->add('status', ChoiceType::class, [
                                                 // 'label'   => false,
                                                 'choices' => array_flip(UserService::STATUS),
-                                                'choices' => array_flip(UserService::STATUS),
                                                 // 'mapped'  => false,
             ])
             ->add('gender', ChoiceType::class, [
