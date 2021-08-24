@@ -79,8 +79,32 @@ class ArticleController extends AbstractController
     /**
      * @Route("/edit/{id}", name="admin_article_edit")
      */
-    public function editArticle($id)
+    public function editArticle($id, Request $request)
     {
+        $page     = 'Article';
+        $action   = 'Ajout';
+        $article = $this->articleService->findOne($id);
+        $articleForm = $this->createForm(ArticleType::class, $article);
+        $articleForm->handleRequest($request);
+        $currentUser = $user = $this->get('security.token_storage')->getToken()->getUser();
+         if ($articleForm->isSubmitted() && $articleForm->isValid()) {
+            $parametters['coverImage'] = $request->files->get('coverImage');
+            $imageFile = $this->articleService->checkArticle($parametters);
+            $article->setCoverImage($imageFile);
+            $article->setCreatedBy($currentUser);
+            $this->manager->persist($article);
+            $this->manager->flush();
+            $this->addFlash('success', 'Article ajouté');
+
+            return $this->redirectToRoute('admin_article_list');
+         }
+
+        return $this->render('back/article/article-action.html.twig', [
+                                                                        'articleForm' => $articleForm->createView(),
+                                                                        'page'        =>$page,  
+                                                                        'action'      => $action,
+                                                                    ]
+        );
 
     }
 }
