@@ -118,6 +118,16 @@ class ArticlesRepository extends ServiceEntityRepository
 
         return $_query;
     }
+
+    public function findByCriterias($values)
+    {
+        $query = $this->createQuery()
+                      ->where('a.name LIKE :valuename')
+                      ->setParameter('valuename', $values.'%')
+                      ->getQuery();
+        
+        return $query->getResult();
+    }
     // /**
     //  * @return Articles[] Returns an array of Articles objects
     //  */

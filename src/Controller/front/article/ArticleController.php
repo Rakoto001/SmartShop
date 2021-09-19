@@ -51,4 +51,22 @@ class ArticleController extends AbstractController
                                                                          'comments' => $commets,
         ]);
     }
+
+    /**
+     * 
+     * @Route("/fo/search", name="fo_article_search")
+     * @return object
+     */
+    public function articleSearch(Request $request)
+    {
+        $alls = $request->query->all();
+        $articleSearchedResults = $this->articleService->searchArticles($alls);
+
+        return $this->render('front/article/list.html.twig', [
+                                                                'articles' => $articleSearchedResults,
+                                                             ]
+                                                            );
+
+        # code...
+    }
 }
