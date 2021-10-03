@@ -20,7 +20,7 @@ class IndexController extends AbstractController
      */
     public function baseMain()
     {
-        $page = 'Menu';
+        $page = 'Accueil';
         $action = '';
         $annonce = $this->articleService->findOne(27);
 

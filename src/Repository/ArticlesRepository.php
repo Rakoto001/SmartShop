@@ -128,6 +128,12 @@ class ArticlesRepository extends ServiceEntityRepository
         
         return $query->getResult();
     }
+
+    /** find article and his category by ids */
+    public function findArticleAndCategById(int $id)
+    {
+        # code...
+    }
     // /**
     //  * @return Articles[] Returns an array of Articles objects
     //  */

@@ -51,6 +51,7 @@ class ArticleAjaxController extends AbstractController
     public function remove($id, Request $request)
     {
        $article = $this->articleService->findOne($id);
+       dd($article);
        $this->articleService->remove($article);
 
        return $this->redirectToRoute('admin_article_list');

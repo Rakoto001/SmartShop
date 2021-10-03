@@ -20,6 +20,7 @@ class UserController extends AbstractController
 {
     private $userService;
     private $role;
+    // const NAME = 'DAN';
     public const USER_PAGE = 'user';
 
     public function __construct(UserService $_userService, RoleService $_role)
@@ -85,15 +86,18 @@ class UserController extends AbstractController
     public function editUser($id, Request $request)
     {
         $action   = 'Edition';
-        $user = $this->userService->findOne($id);
-        $roles = $this->role->getRole($id);
+        $user     = $this->userService->findOne($id);
+        $roles    = $this->role->getRole($id);
         foreach($roles as $tmp_role){
         $role[] = $tmp_role->getTitle();
 
         }
         // $user->setRoles
         $userForm = $this->createForm(UserType::class, $user);
-        $userForm['role']->setData($role);
+
+        if (!empty($roles) || $roles != NULL) {
+            $userForm['role']->setData($role);
+        } 
         $userForm->handleRequest($request);
 
         

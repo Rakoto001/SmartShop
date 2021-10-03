@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+    
+    const CATEGORY_PAGE = 'Categorie';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

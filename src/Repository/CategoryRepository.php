@@ -28,6 +28,7 @@ class CategoryRepository extends ServiceEntityRepository
      */
     public function findAllArticlesByCategId($id)
     {
+        
         $connexion = $this->getEntityManager()->getConnection();
         $sql = "
         SELECT * FROM `articles` JOIN category 
@@ -58,6 +59,47 @@ class CategoryRepository extends ServiceEntityRepository
                   ->getQuery()
                   ->getResult();
         
+    }
+
+    /**
+     * set the limit based on datatable params
+     */
+    public function setLimit($limit, $offset)
+    {
+        $qb = $this->createQuery()
+                   ->setFirstResult($offset)
+                   ->setMaxResults($limit);
+
+        return $qb;
+    }
+
+    /**
+     * make seearc if key search exists
+     */
+    public function makeSearch($params, $query)
+    {
+    
+        if (isset($params['search']['value']) && !empty($params['search']['value'])) {
+            $paramsToSearch = $params['search']['value'];
+
+            $qb = $query->where('c.description LIKE :params')
+                         ->setParameter('params', '%'.$paramsToSearch);
+
+                return $qb;
+        }
+
+        return $query;
+        
+    }
+
+     /**
+     * make order by
+     */
+    public function makeOrder($_query)
+    {
+        $query = $_query->orderBy('c.id', 'ASC');
+
+        return $query;
     }
 
     // /**

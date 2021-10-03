@@ -234,6 +234,32 @@ class UserService extends BaseService
        return $results;
    }
 
+   /**
+    * remove user
+    */
+   public function remove($_object)
+   {
+    $projectDir = $this->kernel->getProjectDir();
+    $articleUploadPath = $this->container->getParameter('user_avatar_upload_path');
+    $avatar = $_object->getAvatar();
+
+    $fileContent = $projectDir.$articleUploadPath.'/'.$avatar;
+    if (file_exists($fileContent)) {
+       unlink($fileContent);
+    }
+
+    return $this->removeDatas($_object);
+   }
+
+   /**
+    * get article created by user id
+    */
+   public function getArticleCreatedByUser($_id)
+   {
+
+      return $this->getRepository()->findArticleByUser($_id);
+    }
+
 
 
 

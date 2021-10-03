@@ -18,9 +18,10 @@ class ArticleService extends BaseService
     private $upload;
 
 
-    public const ACTIVATE      = 'Activé';
-    public const DESACTIVATE   = 'Desactivé';
-    public const STATUS_OPTION = [
+
+    const ACTIVATE      = 'Activé';
+    const DESACTIVATE   = 'Desactivé';
+    const STATUS_OPTION = [
                                     '1'    => self::ACTIVATE,
                                     '0' => self::DESACTIVATE,
     ];
@@ -180,6 +181,17 @@ class ArticleService extends BaseService
        }
        
        return $this->removeDatas($_object);
+   }
+
+   /**
+    * search all articles by values from input
+    */
+   public function searchArticles(array $_articleParamsValues)
+   {
+       $searchParams = $_articleParamsValues['article-search'];
+       $articles = $this->getRepository()->findByCriterias($searchParams);
+
+       return $articles;
    }
 
 

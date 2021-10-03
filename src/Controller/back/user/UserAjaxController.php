@@ -2,6 +2,9 @@
 
 namespace App\Controller\back\user;
 
+use App\Services\ArticleService;
+use App\Services\BookingService;
+use App\Services\RoleService;
 use App\Services\UserService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,9 +17,18 @@ use Symfony\Component\HttpFoundation\Request;
 class UserAjaxController extends AbstractController
 {
     private $userService;
+    private $roleService;
+    private $articleService;
+    private $bookingService;
 
-    public function __construct(UserService $_userService) {
-        $this->userService = $_userService;
+    public function __construct(UserService $_userService,
+                                RoleService $_roleService,
+                                ArticleService $_articleService,
+                                BookingService $_bookingService) {
+        $this->userService    = $_userService;
+        $this->roleService    = $_roleService;
+        $this->articleService = $_articleService;
+        $this->bookingService = $_bookingService;
     }
     /**
      * @Route("/ajax/list", name="admin_user_ajax_list")
@@ -50,7 +62,37 @@ class UserAjaxController extends AbstractController
      */
     public function deleteUser($id)
     {
-        dd($id);
+        // dd($id);
+        //supprime les articles crée par l'utilisateur a supprimer
+       $articles = $this->userService->getArticleCreatedByUser($id);
+       if ($articles) {
+           if (count($articles)>1) {
+                foreach($articles as $article){
+                    //delete article
+                    // $this->articleService->remove($article);
+                    
+                    $booker = $this->bookingService->removeByCriterias->getID();
+                    dd($booker);
+
+                }
+           } else {
+                    // find booking by id of article
+                    $booker = $this->bookingService->getOneById($articles[0]->getId());
+                    dd($booker);
+
+
+                    // $this->articleService->remove($articles[0]);
+           }
+
+       }
+       //
+       //suppression du role de l'utilisateur
+       $this->roleService->remove($id);
+       //supression de l'utilsateur
+       $user  = $this->userService->findOne($id);
+       $this->userService->remove($user);
+       
+       return $this->redirectToRoute('admin_article_list');
     }
 
     

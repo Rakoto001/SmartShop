@@ -80,6 +80,33 @@ class UserRepository extends ServiceEntityRepository
         dd($results);
     }
 
+    /**
+     * find all articles created by user id
+     */
+    public function findArticleByUser($_id)
+    {
+        // $connexion = $this->getEntityManager()->getConnection();
+        // $sql = "
+        // SELECT * FROM `articles` 
+        // JOIN user on articles.created_by_id=user.id
+        // WHERE articles.created_by_id =$_id
+        // ";
+        // $statement = $connexion->prepare($sql);
+        // $statement->execute();
+        // $results = $statement->fetchObject('articles');
+
+        $entityManager = $this->getEntityManager();
+        $query= $entityManager->createQuery(
+                                                'SELECT a FROM App\Entity\Articles a 
+                                                 JOIN App\Entity\User u 
+                                                 WHERE a.createdBy=u.id 
+                                                 AND a.createdBy = :id')
+                              ->setParameter('id', $_id)
+                              ->getResult();
+
+        return $query;
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
