@@ -84,6 +84,7 @@ class ArticleController extends AbstractController
         $page     = 'Article';
         $action   = 'Ajout';
         $article = $this->articleService->findOne($id);
+        
         $articleForm = $this->createForm(ArticleType::class, $article);
         $articleForm->handleRequest($request);
         $currentUser = $user = $this->get('security.token_storage')->getToken()->getUser();

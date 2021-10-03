@@ -29,4 +29,22 @@ class RoleService extends BaseService
       return $this->getRepository()->findAllRoles($id);
    }
 
+   /**
+    * delete role
+    */
+   public function remove($_id)
+   {
+    $roles = $this->getRole($_id);
+    if (count($roles)>1) {
+        foreach($roles as $role){
+            // $this->removeDatas($role);
+        }
+    } else {
+        // $this->removeDatas($roles[0]);
+        // $this->removeDatas($roles);
+    }
+
+       return true;
+   }
+
 }

@@ -19,6 +19,20 @@ class BookingRepository extends ServiceEntityRepository
         parent::__construct($registry, Booking::class);
     }
 
+    public function findAllArticlesByArticleId($_id)
+    {
+        $connexion = $this->getEntityManager()->getConnection();
+        $sql = "
+        SELECT * FROM `booking` WHERE article_id =$_id
+        ";
+        $statement = $connexion->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        // dd($results);
+
+        return $results;
+    }
+
     // /**
     //  * @return Booking[] Returns an array of Booking objects
     //  */

@@ -1,0 +1,247 @@
+{% extends "back/base-bo.html.twig" %}
+
+
+{% block title %}
+	{{ page }} - {{ action }}
+{% endblock %}
+
+{% block stylesheet %}
+
+    <!-- Favicon icon -->
+	<link rel="shortcut icon" href="{{asset('bo/assets/images/favicon.png')}}" type="image/x-icon">
+	<link rel="icon" href="{{asset('bo/assets/images/favicon.ico')}}" type="image/x-icon">
+
+	<!-- Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet">
+
+   <!--Date Picker Material Icon Css-->
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- themify -->
+	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/icon/themify-icons/themify-icons.css')}}">
+
+   <!-- Font Awesome -->
+   <link href="{{asset('bo/assets/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+
+	<!-- iconfont -->
+	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/icon/icofont/css/icofont.css')}}">
+
+
+	<!-- simple line icon -->
+	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/icon/simple-line-icons/css/simple-line-icons.css')}}">
+
+   <!-- Required Fremwork -->
+   <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/plugins/bootstrap/css/bootstrap.min.css')}}">
+
+	<!-- Date Picker css -->
+   <link rel="stylesheet" href="{{asset('bo/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}" />
+
+   <!-- Bootstrap Date-Picker css -->
+   <link rel="stylesheet" href="{{asset('bo/assets/plugins/bootstrap-datepicker/css/bootstrap-datetimepicker.css')}}" />
+   <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/plugins/bootstrap-daterangepicker/daterangepicker.css')}}" />
+    <!-- multiselect start -->
+    <link rel="stylesheet" href="{{asset('bo/assets/plugins/select2/dist/css/select2.min.css')}}" />
+   <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/plugins/select2/css/s2-docs.css')}}"> 
+
+   <!-- Multi Select css -->
+   <link rel="stylesheet" href="{{asset('bo/assets/plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css')}}" />
+   <link rel="stylesheet" href="{{asset('bo/assets/plugins/multiselect/css/multi-select.css')}}" />
+
+    <!-- Color Picker css -->
+   <link rel="stylesheet" href="{{asset('bo/assets/plugins/spectrum/spectrum.css')}}" />
+
+   <!-- Tags css -->
+   <link rel="stylesheet" href="{{asset('bo/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')}}" />
+
+   <!-- bash syntaxhighlighter css -->
+   <link type="text/css" rel="stylesheet" href="{{asset('bo/assets/plugins/syntaxhighlighter/styles/shCoreDjango.css')}}"/>
+
+   <!-- Style.css -->
+  <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/main.css')}}">
+
+  <!-- Responsive.css-->
+  <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/responsive.css')}}">
+
+	<!--color css-->
+	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/color/color-1.min.css')}}" id="color" /><!-- multiselect end --> 
+
+
+
+  <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/main.css')}}">
+
+  <!-- Responsive.css-->
+  <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/responsive.css')}}">
+
+	<!--color css-->
+	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/color/color-1.min.css" id="color')}}" />
+
+
+{% endblock %}
+
+{% block breadcrumbs %}
+	{% include ('back/common/breadcrumbs.html.twig') %}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				{# <section class="panel"> #}
+					
+				<div class="card-header">
+                {% if action == 'Ajout' %}
+							<h5 class="card-header-text">Ajout</h5>
+                {% elseif action == 'Edition' %}
+							<h5 class="card-header-text">Modification</h5>
+
+                {% endif %}
+                
+							<p></p>
+				</div>
+{{ form_start(categorieForm,{'method':'POST', 'type':'submit', 'attr':{'class':'form-horizontal form-bordered', 'id':'form-vategorie', 'enctype':'multipart/form-data'}         }) }}
+
+               
+                <div class="card-block">
+                 <div class="form-group row">
+                        <label for="InputSmall" class="col-md-2 form-control-label"> Nom *</label>
+                    <div class="col-md-10">
+                     {{form_widget(categorieForm.name,{'attr':{
+                                                             'class':"form-control",
+                                                              'placeholder':"nom de la catégorie"
+                                                              }
+
+                                     })
+                    }}
+                               
+                    </div>
+                 </div>
+                
+
+                
+                <div class="form-group row">
+                        <label for="InputSmall" class="col-md-2 form-control-label">Description  *</label>
+                    <div class="col-md-10">
+                     {{form_widget(categorieForm.description,{'attr':{
+                                                             'class':"form-control",
+                                                              'placeholder':"Contenu de la catégorie"
+                                                              }
+
+                                     })
+                    }}
+                               
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                        <label for="InputSmall" class="col-md-2 form-control-label">Status  *</label>
+                    <div class="col-md-10">
+                     {{form_widget(categorieForm.status,{'attr':{
+                                                             'class':"form-control",
+                                                             'placeholder':""
+                                                              }
+
+                                     })
+                    }}
+                               
+                    </div>
+                </div>
+
+               
+
+                
+
+
+                <div class="form-group row">
+                        <label for="InputSmall" class="col-md-2 form-control-label">Acatar  *</label>
+                    <div class="col-md-10">
+							<input id="dropzone-file" type="file" name="avatar" accept="image/*" class="dropzone-file {#d-none#}" style="display: block"/>
+                               
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-30">Enregistrer</button>
+                           
+     </div>
+	{{ form_rest(categorieForm) }}
+    
+    {{ form_end(categorieForm) }} 
+
+				
+			</div>
+		</div>
+	</div>
+
+					{# </section> #}
+
+				{% endblock %}
+
+				{% block javascript %}
+             
+             <script src="{{asset('bo/assets/plugins/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('bo/assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+    <script src="{{asset('bo/assets/plugins/tether/dist/js/tether.min.js')}}"></script>
+
+    <!-- Required Fremwork -->
+    <script src="{{asset('bo/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+
+    <!-- waves effects.js -->
+    
+    <script src="{{asset('bo/assets/plugins/Waves/waves.min.js')}}"></script>
+
+    <!-- Scrollbar JS-->
+    <script src="{{asset('bo/assets/plugins/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
+    <script src="{{asset('bo/assets/plugins/jquery.nicescroll/jquery.nicescroll.min.js')}}"></script>
+
+    <!--classic JS-->
+    <script src="{{asset('bo/assets/plugins/classie/classie.js')}}"></script>
+
+    <!-- notification -->
+    <script src="{{asset('bo/assets/plugins/notification/js/bootstrap-growl.min.js')}}"></script>
+
+   <!-- Date picker.js -->
+   <script src="{{asset('bo/assets/plugins/datepicker/js/moment-with-locales.min.js')}}"></script>
+   <script src="{{asset('bo/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js')}}"></script>
+
+
+
+<!-- Select 2 js -->
+   <script src="{{asset('bo/assets/plugins/select2/dist/js/select2.full.min.js')}}"></script>
+
+   <!-- Max-Length js -->
+   <script src="{{asset('bo/assets/plugins/bootstrap-maxlength/src/bootstrap-maxlength.js')}}"></script>
+
+   <!-- Multi Select js -->
+   <script src="{{asset('bo/assets/plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js')}}"></script>
+   <script src="{{asset('bo/assets/plugins/multiselect/js/jquery.multi-select.js')}}"></script>
+   <script type="text/javascript" src="{{asset('bo/assets/plugins/multi-select/js/jquery.quicksearch.js')}}"></script>
+
+
+
+   <!-- Tags js -->
+   <script src="{{asset('bo/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.js')}}"></script>
+
+   <!-- Bootstrap Datepicker js -->
+    <script type="text/javascript" src="{{asset('bo/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
+
+    <!-- bootstrap range picker -->
+    <script type="text/javascript" src="{{asset('bo/assets/plugins/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+
+      <!-- color picker -->
+   <script type="text/javascript" src="{{asset('bo/assets/plugins/spectrum/spectrum.js')}}"></script>
+   <script type="text/javascript" src="{{asset('bo/assets/plugins/jscolor/jscolor.js')}}"></script>
+
+   <!-- highlite js -->
+   <script type="text/javascript" src="{{asset('bo/assets/plugins/syntaxhighlighter/scripts/shCore.js')}}"></script>
+   <script type="text/javascript" src="{{asset('bo/assets/plugins/syntaxhighlighter/scripts/shBrushJScript.js')}}"></script>
+   <script type="text/javascript" src="{{asset('bo/assets/plugins/syntaxhighlighter/scripts/shBrushXml.js')}}"></script>
+   <script type="text/javascript">SyntaxHighlighter.all();</script>
+
+   <!-- custom js -->
+   <script type="text/javascript" src="{{asset('bo/assets/js/main.min.js')}}"></script>
+   <script type="text/javascript" src="{{asset('bo/assets/pages/advance-form.js')}}"></script>
+   <script src="{{asset('bo/assets/js/menu.min.js')}}"></script>
+	<script type="text/javascript">
+		SyntaxHighlighter.all();
+	</script>
+				{% endblock %}

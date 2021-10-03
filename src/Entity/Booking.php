@@ -26,7 +26,7 @@ class Booking
 
     /**
      * @ORM\ManyToOne(targetEntity=Articles::class, inversedBy="bookings", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $article;
 

@@ -1,8 +1,8 @@
 <ul class="sidebar-menu">
                 <li class="nav-level">--- Navigation</li>
                 <li class="active treeview">
-                    <a class="waves-effect waves-dark" href="index.html">
-                        <i class="icon-speedometer"></i><span> Dashboard</span>
+                    <a class="waves-effect waves-dark" href="{{ path('admin_main') }}">
+                        <i class="ti-home"></i><span> Accueil</span>
                     </a>                
                 </li>
 
@@ -32,13 +32,13 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a class="waves-effect waves-dark" href="#!">
+                                    <a class="waves-effect waves-dark" href="{{ path('admin_category_list') }}">
                                         <i class="ti-view-list-alt"></i>
                                         Liste
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="waves-effect waves-dark" href="#!">
+                                    <a class="waves-effect waves-dark" href="{{ path('category_admin_add') }}">
                                         <i class="ti-plus"></i>
                                         <span>Ajout</span>
                                     </a>

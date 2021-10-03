@@ -52,7 +52,7 @@ class Articles
 
 
     /**
-     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="article")
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="article", orphanRemoval=true)
      */
     private $bookings;
 
