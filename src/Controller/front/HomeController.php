@@ -21,7 +21,7 @@ class HomeController extends AbstractController
 
 
     /**
-     * @Route("/smartshop/main", name="front_main")
+     * @Route("/", name="front_main")
      */
     public function index(SessionInterface $_session)
     {

@@ -60,6 +60,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function getCredentials(Request $request)
     {
+        dd('here');
         $credentials = [
             'email' => $request->request->get('email'),
             'password' => $request->request->get('password'),
@@ -104,6 +105,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        dd($targetPath = $this->getTargetPath($request->getSession(), $providerKey));
       
         
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {

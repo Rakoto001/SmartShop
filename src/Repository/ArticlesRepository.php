@@ -75,8 +75,8 @@ class ArticlesRepository extends ServiceEntityRepository
         JOIN user ON comments.author_id=user.id
         WHERE articles.id=$id";
         $statement = $query->prepare($sql);
-        $statement->execute();
-        $results = $statement->fetchAll();
+        $results   = $statement->execute()
+                               ->fetchAllAssociative();
         
         return $results;
     }
