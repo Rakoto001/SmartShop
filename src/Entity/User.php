@@ -187,9 +187,15 @@ class User implements UserInterface
     public function getRoles()
     {
         $tmp_roles = $this->roles->toArray();
-        foreach($tmp_roles as $role){
-            $roles[] = $role->getTitle();
+        if (count($tmp_roles)>0) {
+            foreach($tmp_roles as $role){
+                $roles[] = $role->getTitle();
+            }
+        } else {
+            $roles[] = "ROLE_USER";
+
         }
+       
         return $roles;
 
     }

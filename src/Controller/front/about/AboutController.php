@@ -20,4 +20,15 @@ class AboutController extends AbstractController
                                                                 'about' => $about->findAll()[0],
                                                              ]);
     }
+
+    /**
+     * @Route("/smartShop/logout", name="front_logout")
+     *
+     * @return void
+     */
+    public function fontLogout()
+    {
+        dd($this->get('security.token_storage')->getToken()->getUser());
+        return $this->redirectToRoute('front_main');
+    }
 }

@@ -40,7 +40,7 @@ class AppFixtures extends Fixture
         $user =  new User();
         $roles = new Roles();
 
-        $userAdminRole = $roles->setTitle('SUPER_ADMIN');
+        $userAdminRole = $roles->setTitle('ROLE_ADMIN');
         $userRole      = $roles->setTitle('USER_ROLE');
 
 
@@ -49,10 +49,13 @@ class AppFixtures extends Fixture
              ->setGender('male')
              ->setLastname('admin');
         $user->setPassword($this->hashPassword->encodePassword($user, $password))
-             ->addRole($userAdminRole)
+             ->addRole($roles->setTitle('ROLE_ADMIN'))
              ->setAvatar('https://randomuser.me/api/portraits/');
 
-        $manager->merge($user);
+
+        $manager->persist($user);
+
+
         
 
         //faker User

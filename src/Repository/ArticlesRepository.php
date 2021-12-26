@@ -30,29 +30,34 @@ class ArticlesRepository extends ServiceEntityRepository
     public function findAllArticles($_max)
     {
 
-        $connexion = $this->getEntityManager()->getConnection();
-        $sql = "
-        SELECT * FROM `articles`
-        WHERE articles.status = 1
+        // $connexion = $this->getEntityManager()->getConnection();
+        // $sql = "
+        // SELECT * FROM `articles`
+        // WHERE articles.status = 1
         
-        ";
-        if($_max == false){
-            $sql .= "LIMIT 3"; 
+        // ";
+        // if($_max == false){
+        //     $sql .= "LIMIT 3"; 
+        // }
+        // $statement = $connexion->prepare($sql);
+        //  $statement->execute();
+        //  $results = $statement->fetchAll();
+        
+
+        
+        // return $results;
+
+        $query = $this->createQuery()
+                        ->where('a.status =:status')
+                        ->setParameter('status', 1)
+                        ->getQuery();
+
+        if ($_max === false) {
+            $query->setMaxResults(3);
+
         }
-        $statement = $connexion->prepare($sql);
-         $statement->execute();
-         $results = $statement->fetchAll();
-        // $qb = $this->createQuery()
-        //            ->leftJoin('a.comments', 'categ')
-        //            ->addSelect('categ')
-        //         //    ->OrderBy('a.id', 'ASC')
-        //            ->getQuery()
-        //            ->getResult();  
-
         
-        return $results;
-
-        // return $qb;
+        return $query->getResult();
 
     }
 
