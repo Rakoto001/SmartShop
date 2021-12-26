@@ -5,7 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     user_avatar_upload_path: '/public/upload/bo/user'
-    article_cover_upload_path: '/public/upload/bo/article'
+    
+    _cover_upload_path: '/public/upload/bo/article'
 
 services:
     # default configuration for services in *this* file

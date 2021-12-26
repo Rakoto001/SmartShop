@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\back\article;
+namespace App\Controller\back\Article;
 
 use App\Services\ArticleService;
 use Symfony\Component\HttpFoundation\Request;

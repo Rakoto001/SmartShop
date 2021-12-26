@@ -8,9 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VisitorController extends AbstractController
 {
-    /**
-     * @Route("/login", name="visitor_login")
-     */
+  
     public function login(): Response
     {
         return $this->render('front/login.html.twig', [
@@ -18,9 +16,7 @@ class VisitorController extends AbstractController
         ]);
     }
 
-     /**
-     * @Route("/logout", name="visitor_logout")
-     */
+    
     public function logout(): Response
     {
         return $this->render('visitor/index.html.twig', [

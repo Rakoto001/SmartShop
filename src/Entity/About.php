@@ -18,7 +18,7 @@ class About
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=35)
+     * @ORM\Column(type="string", length=255)
      */
     private $Name;
 
@@ -43,7 +43,7 @@ class About
     private $contact;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
     private $url;
 

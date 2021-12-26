@@ -3,22 +3,26 @@
 namespace App\Security;
 
 use App\Entity\User;
+use Monolog\Handler\StreamHandler;
+use Symfony\Bridge\Monolog\Logger;
+use Psr\Container\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
-use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
@@ -30,13 +34,22 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $container;
+    private $kernel;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, 
+                                UrlGeneratorInterface $urlGenerator, 
+                                CsrfTokenManagerInterface $csrfTokenManager, 
+                                UserPasswordEncoderInterface $passwordEncoder, 
+                                ContainerInterface $_container,
+                                 KernelInterface $_kernel)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->container = $_container;
+        $this->kernel = $_kernel;
     }
 
     public function supports(Request $request)
@@ -91,12 +104,22 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+      
+        
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
+           
+           
             return new RedirectResponse($targetPath);
         }
-
         // For example : 
-        return new RedirectResponse($this->urlGenerator->generate('front_main'));
+        $logger = new Logger('user-connected-logs');
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $logger->pushHandler(new StreamHandler($this->kernel->getProjectDir().'/userLogs/'.'today.log'), Logger::DEBUG);
+        $logger->info('L\'utilisateur '.$user->getUsername().'s\'est connecté');
+        $logger->info('Nom : ' .$user->getUsername());
+        $logger->info('email : ' .$user->getEmail());
+        $logger->info('fin');
+        return new RedirectResponse($this->urlGenerator->generate('home'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 

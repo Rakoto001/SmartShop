@@ -7,10 +7,13 @@ use App\Entity\Roles;
 use App\Form\UserType;
 use App\Services\RoleService;
 use App\Services\UserService;
+use Monolog\Handler\StreamHandler;
+use Symfony\Bridge\Monolog\Logger;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -20,13 +23,15 @@ class UserController extends AbstractController
 {
     private $userService;
     private $role;
+    private $kernel;
     // const NAME = 'DAN';
     public const USER_PAGE = 'user';
 
-    public function __construct(UserService $_userService, RoleService $_role)
+    public function __construct(UserService $_userService, RoleService $_role, KernelInterface $_kernel)
     {
         $this->userService = $_userService;
         $this->role        = $_role;
+        $this->kernel      = $_kernel;
     }
     /**
      * @Route("/list", name="admin_user_list")
@@ -85,6 +90,8 @@ class UserController extends AbstractController
      */
     public function editUser($id, Request $request)
     {
+      
+
         $action   = 'Edition';
         $user     = $this->userService->findOne($id);
         $roles    = $this->role->getRole($id);
