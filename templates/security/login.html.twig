@@ -69,14 +69,14 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="md-input-wrapper">
-                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="md-form-control" autocomplete="email" required autofocus>
+                                <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="md-form-control" autocomplete="email" required autofocus>
 									{# <input name="_email"type="email" class="md-form-control" required="required"/> #}
 									<label>Email</label>
 								</div>
 							</div>
 							<div class="col-md-12">
 								<div class="md-input-wrapper">
-                                <input type="password" name="password" id="inputPassword" class="md-form-control" autocomplete="current-password" required>
+                                <input type="password" name="_password" id="inputPassword" class="md-form-control" autocomplete="current-password" required>
 								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                                 	{# <input name="_password" type="password" class="md-form-control" required="required"/> #}
 									<label>Password</label>

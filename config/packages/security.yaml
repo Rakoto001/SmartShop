@@ -19,14 +19,14 @@ security:
         admin:
             pattern: ^/admin #tout ce qui commence par /admin
             anonymous: true #tout le monde peut l'acceder
-            provider: users_in_memory
-            guard:
-                authenticators:
-                    - App\Security\LoginFormAuthenticator
+            provider: user_login
+            form_login:
+                login_path: app_login
+                check_path: app_login
             logout:
                 path: app_logout
                 # where to redirect after logout
-                # target: app_any_route
+                target: app_login
         main:
             anonymous: lazy
             provider: user_login
@@ -35,7 +35,7 @@ security:
                 check_path: front_login
             logout:
                 path: app_logout
-                target: home
+                target: front_main
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -47,6 +47,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #  - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

@@ -28,7 +28,7 @@ class AddController extends AbstractController
 
     /**
      * @Route("/adds/add/new/{id}", name="adds_new_cart")
-     * @IsGranted("ROLE_USER", message="WARNING:PAGE ERROR - ACCESS DENIED")
+     * @IsGranted("ROLE_USER", message="WARNING:PAGE ERROR - ACCES NON AUTORISE")
      */
     public function addNewCart(SessionInterface $session, $id, Request $request)
     {
