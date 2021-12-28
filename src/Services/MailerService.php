@@ -10,12 +10,14 @@ class MailerService
     private $mailer;
     private $template;
     private $container;
+    private $addService;
 
-    public function __construct(Swift_Mailer $mailer, \Twig\Environment $_template, ContainerInterface $container)
+    public function __construct(Swift_Mailer $mailer, \Twig\Environment $_template, ContainerInterface $container, AddService $addService)
     {
-        $this->mailer   = $mailer;
-        $this->template = $_template;
-        $this->container = $container;
+        $this->mailer     = $mailer;
+        $this->template   = $_template;
+        $this->container  = $container;
+        $this->addService = $addService;
     }
     
     public function sendMailToAdmin($paramsArticles, $purshaseDate)
@@ -35,7 +37,10 @@ class MailerService
                         ->setBody($template, 'text/html') ;
 
         $this->mailer->send($message);
-        
+        //suppression de toute les sessions liées aux achats après confirmation de l'achat
+        $this->addService->removeSessionAction();
+
+
         return true;
 
     }

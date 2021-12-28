@@ -4,13 +4,16 @@ namespace App\Services;
 
 use App\Services\BaseService;
 use App\Services\ArticleService;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class AddService extends BaseService
 {
     private $articlesService;
+    private $session;
 
-    public function __construct(ArticleService $_articlesService) {
+    public function __construct(ArticleService $_articlesService, SessionInterface $session) {
         $this->articlesService = $_articlesService;
+        $this->session = $session;
     }
 
     /**
@@ -60,6 +63,19 @@ class AddService extends BaseService
         
 
         return ['totalPrice' => $totalPrice, 'cartArticles' => $cartArticles];
+    }
+
+    
+    /**
+     * remove all session stored in cart
+     *
+     * @return true
+     */
+    public function removeSessionAction()
+    {
+        $cart = $this->session->set('cart', []);
+
+        return true;
     }
 
 }

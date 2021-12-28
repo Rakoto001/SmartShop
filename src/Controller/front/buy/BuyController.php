@@ -30,20 +30,9 @@ class BuyController extends AbstractController
     {
         $dispatcher->dispatch('send.mail.action',new TechnoBuyEvent);
 
-        return $this->redirectToRoute('adds_list');
-        // $cart = $this->session->get('cart');
-        // // dd($cart);
-        // $paramsArticles = $this->addService->getArticlePrice($cart);
-        // $cartArticles   = $paramsArticles['cartArticles'];
-        // $totalPrice     = $paramsArticles['totalPrice'];
-        // $odate          = new DateTime();
-        // $purshaseDate   = $odate->format('Y-m-d H:i:s');
+        $this->addFlash('success', 'Votre achat a été confirmé');
 
-        // return $this->render('mail/adminmail/admin.html.twig', [
-        //                                                         'cartArticles'  => $cartArticles,
-        //                                                         'total'         => $totalPrice,
-        //                                                         'purshaseDate'  => $purshaseDate
-        // ]);
+        return $this->redirectToRoute('adds_list');
     }
 
 }
