@@ -20,8 +20,11 @@
    
         <div class="card">
                      <div class="card-header">
-                        <h5 class="card-header-text">Hover Effects on Row</h5>
-                        <p>Add <code>.table-hover</code> Class in table tag</p>
+                     {% if cartArticles|length>0  %}
+                        <h5 class="card-header-text">Liste de vos achat dans le site :</h5>
+                     {% else %}
+                        <h5 class="card-header-text">La liste de vos achat seront affichées ici</h5>
+                     {% endif %}
                      </div>
 
                      <form action="{{ path('article_buy') }}" method="POST">
@@ -90,5 +93,37 @@
     {% endblock %}
 
         {% block javasvript %}
+            <script>
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                new PNotify({
+                    title: 'Notification',
+                    type: 'success',
+                    text: "{{ flashMessage }}",
+                    animation: "fade",
+                    delay: 2000,
+                });
+            {% endfor %}
+
+             {% for flashMessage in app.session.flashbag.get('error') %}
+                new PNotify({
+                    title: 'Notification',
+                    type: 'error',
+                    text: "{{ flashMessage }}",
+                    animation: "fade",
+                    delay: 2000,
+                });
+            {% endfor %}
+            // {% for key, flashMessage in app.session.flashbag.get('error') %}
+            //     new PNotify({
+            //         title: 'Notification',
+            //         type: 'error',
+            //         text: "{{ flashMessage }}",
+            //         animation: "fade",
+            //         delay: 6000,
+            //     });
+            // {% endfor %}
+        </script>
+        
         {% endblock %}
+         
 
