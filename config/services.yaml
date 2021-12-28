@@ -8,6 +8,8 @@ parameters:
     
     _cover_upload_path: '/public/upload/bo/article'
 
+    template_mail_admin: 'mail/adminmail/admin.html.twig'
+
 services:
     # default configuration for services in *this* file
     _defaults:

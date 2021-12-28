@@ -28,22 +28,22 @@ class BuyController extends AbstractController
      */
     public function buyArticles(EventDispatcherInterface $dispatcher)
     {
-        // $dispatcher->dispatch('send.mail.action',new TechnoBuyEvent);
+        $dispatcher->dispatch('send.mail.action',new TechnoBuyEvent);
 
-        // return $this->redirectToRoute('adds_list');
-        $cart = $this->session->get('cart');
-        // dd($cart);
-        $paramsArticles = $this->addService->getArticlePrice($cart);
-        $cartArticles   = $paramsArticles['cartArticles'];
-        $totalPrice     = $paramsArticles['totalPrice'];
-        $odate          = new DateTime();
-        $purshaseDate   = $odate->format('Y-m-d H:i:s');
+        return $this->redirectToRoute('adds_list');
+        // $cart = $this->session->get('cart');
+        // // dd($cart);
+        // $paramsArticles = $this->addService->getArticlePrice($cart);
+        // $cartArticles   = $paramsArticles['cartArticles'];
+        // $totalPrice     = $paramsArticles['totalPrice'];
+        // $odate          = new DateTime();
+        // $purshaseDate   = $odate->format('Y-m-d H:i:s');
 
-        return $this->render('mail/adminmail/admin.html.twig', [
-                                                                'cartArticles'  => $cartArticles,
-                                                                'total'         => $totalPrice,
-                                                                'purshaseDate'  => $purshaseDate
-        ]);
+        // return $this->render('mail/adminmail/admin.html.twig', [
+        //                                                         'cartArticles'  => $cartArticles,
+        //                                                         'total'         => $totalPrice,
+        //                                                         'purshaseDate'  => $purshaseDate
+        // ]);
     }
 
 }
