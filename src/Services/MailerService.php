@@ -20,7 +20,7 @@ class MailerService
         $this->addService = $addService;
     }
     
-    public function sendMailToCustomer($paramsArticles, $purshaseDate)
+    public function sendMailToCustomer($paramsArticles, $currentCustomer, $purshaseDate)
     {
         $templateMailAdmin = $this->container->getParameter('template_mail_customer');
         
@@ -33,7 +33,7 @@ class MailerService
         $template     = $this->template->render($templateMailAdmin, $parametersMail);
         $message      = (new \Swift_Message('Hello Email'))
                         ->setFrom('symfony9494@gmail.com')
-                        ->setTo('rakotoarisondan@gmail.com')
+                        ->setTo($currentCustomer->getEmail())
                         ->setBody($template, 'text/html') ;
 
         $this->mailer->send($message);

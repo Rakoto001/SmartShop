@@ -42,7 +42,7 @@ class TechnoEventListener
         $currentCustomer = $this->container->get('security.token_storage')->getToken()->getUser();
 
         if($currentCustomer){
-            $this->mailerService->sendMailToCustomer($paramsArticles, $purshaseDate);
+            $this->mailerService->sendMailToCustomer($paramsArticles, $currentCustomer, $purshaseDate);
             $this->mailerService->sendMailToAdmin($paramsArticles, $currentCustomer, $purshaseDate);
         }
 
