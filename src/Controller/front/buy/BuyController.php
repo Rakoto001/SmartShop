@@ -32,7 +32,26 @@ class BuyController extends AbstractController
 
         $this->addFlash('success', 'Votre achat a été confirmé');
 
+  
         return $this->redirectToRoute('adds_list');
+        // $cart = $this->session->get('cart');
+        // $paramsArticles  = $this->addService->getArticlePrice($cart);
+        // $currentCustomer = $this->get('security.token_storage')->getToken()->getUser();
+
+        // $cartArticles = $paramsArticles['cartArticles'];
+        // $totalPrice   = $paramsArticles['totalPrice'];
+        // $odate          = new DateTime();
+        // $purshaseDate   = $odate->format('Y-m-d H:i:s');
+                            
+        // return $this->render('mail/adminmail/admin.html.twig', [
+        //                                                             'cartArticles'  => $cartArticles,
+        //                                                             'total'         => $totalPrice,
+        //                                                             'curentCustomer'=> $currentCustomer->getUsername(),
+        //                                                             'mailCustomer'  => $currentCustomer->getEmail(),
+        //                                                             'purshaseDate'  => $purshaseDate,
+        //                     ]);                       
+
+       
     }
 
 }

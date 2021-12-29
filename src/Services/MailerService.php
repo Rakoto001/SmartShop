@@ -20,14 +20,14 @@ class MailerService
         $this->addService = $addService;
     }
     
-    public function sendMailToAdmin($paramsArticles, $purshaseDate)
+    public function sendMailToCustomer($paramsArticles, $purshaseDate)
     {
-        $templateMailAdmin = $this->container->getParameter('template_mail_admin');
+        $templateMailAdmin = $this->container->getParameter('template_mail_customer');
         
-        $parametersMail = [
-                            'cartArticles'  => $paramsArticles['cartArticles'],
-                            'total'         => $paramsArticles['totalPrice'],
-                            'purshaseDate'  => $purshaseDate
+        $parametersMail    = [
+                                'cartArticles'  => $paramsArticles['cartArticles'],
+                                'total'         => $paramsArticles['totalPrice'],
+                                'purshaseDate'  => $purshaseDate,
                             ];
 
         $template     = $this->template->render($templateMailAdmin, $parametersMail);
@@ -38,11 +38,39 @@ class MailerService
 
         $this->mailer->send($message);
         //suppression de toute les sessions liées aux achats après confirmation de l'achat
-        $this->addService->removeSessionAction();
+        // $this->addService->removeSessionAction();
 
 
         return true;
 
     }
+
+    public function sendMailToAdmin($paramsArticles, $currentCustomer, $purshaseDate)
+    {
+        $templateMailAdmin = $this->container->getParameter('template_mail_admin');
+        
+        $parametersMail    = [
+                                'cartArticles'  => $paramsArticles['cartArticles'],
+                                'total'         => $paramsArticles['totalPrice'],
+                                'curentCustomer'=> $currentCustomer->getUserName(),
+                                'mailCustomer'  => $currentCustomer->getEmail(),
+                                'purshaseDate'  => $purshaseDate,
+                            ];
+
+        $template     = $this->template->render($templateMailAdmin, $parametersMail);
+        $message      = (new \Swift_Message('Hello Email'))
+                        ->setFrom('symfony9494@gmail.com')
+                        ->setTo('rakotoarisondan@gmail.com')
+                        ->setBody($template, 'text/html') ;
+
+        $this->mailer->send($message);
+        //suppression de toute les sessions liées aux achats après confirmation de l'achat
+        // $this->addService->removeSessionAction();
+
+
+        return true;
+    }
+
+
 
 }
