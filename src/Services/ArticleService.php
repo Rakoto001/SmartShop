@@ -8,7 +8,6 @@ use Psr\Container\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Contracts\Cache\CacheInterface;
 
 class ArticleService extends BaseService
 {
@@ -32,15 +31,13 @@ class ArticleService extends BaseService
                                UrlGeneratorInterface $_router,
                                KernelInterface $_kernel,
                                ContainerInterface $_container,
-                               UploadService $_upload,
-                               CacheInterface $cache) 
+                               UploadService $_upload) 
    {
-       $this->manager   = $_manager;
-       $this->router    = $_router;
-       $this->kernel    = $_kernel;
+       $this->manager = $_manager;
+       $this->router  = $_router;
+       $this->kernel  = $_kernel;
        $this->container = $_container;
-       $this->upload    = $_upload;
-       $this->cache     = $cache;
+       $this->upload = $_upload;
    }
    
    /**
@@ -65,11 +62,7 @@ class ArticleService extends BaseService
     */
    public function getAllArticles($_max)
    {
-       $allArticles = $this->cache->get('all_articles', function() use ($_max){
-           $this->getRepository()->findAllArticles($_max);
-       });
-
-       return $allArticles;
+       return $this->getRepository()->findAllArticles($_max);
    }
 
    /**
