@@ -7,6 +7,7 @@ use App\Services\CategoryService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class HomeController extends AbstractController
 {
@@ -23,10 +24,16 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="front_main")
      */
-    public function index(SessionInterface $_session)
+    public function index(SessionInterface $_session, CacheInterface $cache)
     {
         $max = false;
-        $articles = $this->articleService->getAllArticles($max);
+        // $articles = $this->articleService->getAllArticles($max);
+
+        $articles = $cache->get('articles_home', function() use($max){
+
+            return $this->articleService->getAllArticles($max);
+
+        });
         $categories = $this->categorie->getAllCategories();
         
         $articlesInSesion = $_session->get('article');
