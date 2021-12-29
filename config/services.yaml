@@ -8,6 +8,7 @@ parameters:
     
     _cover_upload_path: '/public/upload/bo/article'
 
+    template_mail_customer: 'mail/customermail/customer.html.twig'
     template_mail_admin: 'mail/adminmail/admin.html.twig'
 
 services:
