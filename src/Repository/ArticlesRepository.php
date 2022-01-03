@@ -30,31 +30,14 @@ class ArticlesRepository extends ServiceEntityRepository
     public function findAllArticles($_max)
     {
 
-        // $connexion = $this->getEntityManager()->getConnection();
-        // $sql = "
-        // SELECT * FROM `articles`
-        // WHERE articles.status = 1
-        
-        // ";
-        // if($_max == false){
-        //     $sql .= "LIMIT 3"; 
-        // }
-        // $statement = $connexion->prepare($sql);
-        //  $statement->execute();
-        //  $results = $statement->fetchAll();
-        
-
-        
-        // return $results;
-
         $query = $this->createQuery()
                         ->where('a.status =:status')
                         ->setParameter('status', 1)
+                        ->orderBy('a.createdAt', 'ASC')
                         ->getQuery();
 
         if ($_max === false) {
             $query->setMaxResults(3);
-
         }
         
         return $query->getResult();

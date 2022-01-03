@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_8D93D649F85E0677", columns={"username"}), @ORM\UniqueConstraint(name="UNIQ_8D93D649E7927C74", columns={"email"})})
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -25,6 +25,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=125)
+     * @Assert\Type("string")
      */
     private $username;
 
@@ -45,6 +46,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=125)
+     * @Assert\Type("string")
+     * 
      */
     private $lastname;
 
@@ -77,6 +80,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="author", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $confirmationAccount;
 
     public function __construct()
     {
@@ -312,6 +320,18 @@ class User implements UserInterface
                 $comment->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getConfirmationAccount(): ?int
+    {
+        return $this->confirmationAccount;
+    }
+
+    public function setConfirmationAccount(?int $confirmationAccount): self
+    {
+        $this->confirmationAccount = $confirmationAccount;
 
         return $this;
     }

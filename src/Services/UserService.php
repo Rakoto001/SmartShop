@@ -20,6 +20,7 @@ class UserService extends BaseService
     private $encoder;
     private $router;
     private $roleService;
+    private $mailer;
 
     public const M = 'Homme';
     public const F = 'Femme';
@@ -40,6 +41,7 @@ class UserService extends BaseService
                                KernelInterface  $_kernel,
                                ContainerInterface $_container,
                                UploadService $_upload,
+                               MailerService $_mailer,
                                UserPasswordEncoderInterface $_encoder,
                                UrlGeneratorInterface $_router,
                                RoleService $_roleService
@@ -52,6 +54,7 @@ class UserService extends BaseService
        $this->encoder     = $_encoder;
        $this->router      = $_router;
        $this->roleService = $_roleService;
+       $this->mailer      = $_mailer;
    }
    
    /**
@@ -65,7 +68,7 @@ class UserService extends BaseService
    /**
     * check user for registratin of for update
     */
-   public function checkUser($_parametters)
+   public function checkUser($_parametters, User $user)
    {
         $user = new User;
         $projectDir = $this->kernel->getProjectDir();
@@ -260,6 +263,28 @@ class UserService extends BaseService
       return $this->getRepository()->findArticleByUser($_id);
     }
 
+
+    public function registerNewUser($aParamsUserRegister)
+    {
+        $user = new User;
+        //  generation password aléatoire
+        $randomUserPass = bin2hex(openssl_random_pseudo_bytes(4));
+        $user->setUsername($aParamsUserRegister['username'])
+             ->setLastname($aParamsUserRegister['lastname'])
+             ->setEmail($aParamsUserRegister['email'])
+             ->setGender($aParamsUserRegister['gender'])
+             ->setStatus(0)
+             ->setPassword($this->encoder->encodePassword($user, $randomUserPass))
+             ->setConfirmationAccount(0)
+             ->setAvatar('https://randomuser.me/api/portraits/');
+        $this->save($user);
+        
+        $this->mailer->sendMailToNewRegistredCustomer($aParamsUserRegister['email'], $randomUserPass);
+
+
+        return $user;
+
+    }
 
 
 
