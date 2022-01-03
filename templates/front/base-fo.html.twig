@@ -212,12 +212,15 @@
             {% for article in articles %}
             {% set name = article.name %}
             {% set content = article.content %}
-            
+            {% set coverArticle = article.coverImage %}
+
+
                
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="{{ path('front_show_one_article', {'id': article.id}) }}">
-                            <img src="{{asset('fo//assets/img/feature_prod_01.jpg')}}" class="card-img-top" alt="...">
+                            {# <img src="{{asset('fo//assets/img/feature_prod_01.jpg')}}" style="width:414px;height:310px" class="card-img-top" alt="..."> #}
+                            <img src="/upload/bo/article/{{ coverArticle }}" style="width:414px;height:310px" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">
@@ -228,7 +231,7 @@
                                     <i class="text-muted fa fa-star"></i>
                                     <i class="text-muted fa fa-star"></i>
                                 </li>
-                                <li class="text-muted text-right">$240.00</li>
+                                <li class="text-muted text-right">{{ article.price }} Ariary</li>
                             </ul>
                             <a href="{{ path('front_article_show_one', {'id': article.id}) }}" class="h2 text-decoration-none text-dark"> {{ name|striptags|length > 20 ? name|striptags|slice(0, 15) ~ '...' : name|striptags }}</a>
                             <p class="card-text">
@@ -276,6 +279,16 @@
 
      <script>
             {% for flashMessage in app.session.flashbag.get('success') %}
+                new PNotify({
+                    title: 'Notification',
+                    type: 'success',
+                    text: "{{ flashMessage }}",
+                    animation: "fade",
+                    delay: 2000,
+                });
+            {% endfor %}
+
+            {% for flashMessage in app.session.flashbag.get('notice') %}
                 new PNotify({
                     title: 'Notification',
                     type: 'success',

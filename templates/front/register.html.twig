@@ -49,76 +49,101 @@
 
 </head>
 <body>
-<section class="login p-fixed d-flex text-center bg-primary common-img-bg">
-	<!-- Container-fluid starts -->
-	<div class="container-fluid">
-		<div class="row">
 
-			<div class="col-sm-12">
-				<div class="login-card card-block">
-					<form class="md-float-material" action="" method="POST">
-                    {# {% if error %}
-                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                     {% endif %} #}
-						<div class="text-center">
-							<img src="{{asset('bo/assets/imageqs/logo-black.png')}}" alt="logo">
-						</div>
-						<h3 class="text-center txt-primary">
-							Se connecter en tant que simple utilisateur
-						</h3>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="md-input-wrapper">
-                                <input type="email" name="_username" id="inputEmail" class="md-form-control" autocomplete="email" required autofocus>
-									{# <input name="_email"type="email" class="md-form-control" required="required"/> #}
-									<label>Email</label>
+<section class="login common-img-bg">
+		<!-- Container-fluid starts -->
+		<div class="container-fluid">
+			<div class="row">
+					<div class="col-sm-12">
+						<div class="login-card card-block bg-white">
+							{{ form_start(registerForm,{'method':'POST', 'type':'submit', 'attr':{'class':'md-float-material', 'id':'form-user', 'enctype':'multipart/form-data'}         }) }}
+								<div class="text-center">
+									<img src="assets/images/logo-black.png" alt="logo">
 								</div>
-							</div>
-							<div class="col-md-12">
+								<h3 class="text-center txt-primary">Create an account </h3>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="md-input-wrapper">
+											{# <input type="text" class="md-form-control" required=""> #}
+											{{form_widget(registerForm.username,{'attr':{
+                                                             'class':"md-form-control",
+                                                              'placeholder':"nom"
+                                                              					}
+
+                                     										})
+                    						}}
+											<label>Nom *</label>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="md-input-wrapper">
+											{{form_widget(registerForm.lastname,{'attr':{
+                                                             'class':"md-form-control",
+                                                              'placeholder':"prénom"
+                                                              					}
+
+                                     										})
+                    						}}
+											<label>Prénom *</label>
+										</div>
+									</div>
+								</div>
 								<div class="md-input-wrapper">
-                                <input type="password" name="_password" id="inputPassword" class="md-form-control" autocomplete="current-password" required>
-								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                                	{# <input name="_password" type="password" class="md-form-control" required="required"/> #}
+									{{form_widget(registerForm.email,{'attr':{
+                                                             'class':"md-form-control",
+                                                              'placeholder':"prénom"
+                                                              					}
+
+                                     										})
+                    						}}
+									<label>Email *</label>
+								</div>
+								<div class="md-input-wrapper">
+									{{form_widget(registerForm.gender,{'attr':{
+                                                             'class':"md-form-control",
+                                                              'placeholder':""
+                                                              					}
+
+                                     										})
+                    						}}
 									<label>Password</label>
 								</div>
-							</div>
-							<div class="col-sm-6 col-xs-12">
-							<div class="rkmd-checkbox checkbox-rotate checkbox-ripple m-b-25">
-								<label class="input-checkbox checkbox-primary">
-									<input type="checkbox" id="remember_me" name="_remember_me">
-									<span class="checkbox"></span>
-								</label>
-								<div class="captions">Remember Me</div>
-
-							</div>
+								<div class="md-input-wrapper">
+									{# <input type="password" class="md-form-control" required="required">
+									<label>Confirm Password</label> #}
 								</div>
-							<div class="col-sm-6 col-xs-12 forgot-phone text-right">
-								<a href="forgot-password.html" class="text-right f-w-600"> Forget Password?</a>
-								</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-10 offset-xs-1">
-								<button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">LOGIN</button>
-							</div>
-						</div>
-						<!-- <div class="card-footer"> -->
-						<div class="col-sm-12 col-xs-12 text-center">
-							<span class="text-muted">Don't have an account?</span>
-							<a href="register2.html" class="f-w-600 p-l-5">Sign up Now</a>
-						</div>
 
-						<!-- </div> -->
-					</form>
-					<!-- end of form -->
+								<div class="rkmd-checkbox checkbox-rotate checkbox-ripple b-none m-b-20">
+									<label class="input-checkbox checkbox-primary">
+										<input type="checkbox" id="checkbox">
+										<span class="checkbox"></span>
+									</label>
+									<div class="captions">Remember Me</div>
+								</div>
+								<div class="col-xs-10 offset-xs-1">
+									<button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light m-b-20">Sign up
+									</button>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 text-center">
+										<span class="text-muted">Already have an account?</span>
+										<a href="login1.html" class="f-w-600 p-l-5"> Sign In Here</a>
+
+									</div>
+								</div>
+								{{ form_rest(registerForm) }}
+    							{{ form_end(registerForm) }} 
+							<!-- end of form -->
+						</div>
+						<!-- end of login-card -->
+					</div>
+					<!-- end of col-sm-12 -->
 				</div>
-				<!-- end of login-card -->
+				<!-- end of row-->
 			</div>
-			<!-- end of col-sm-12 -->
-		</div>
-		<!-- end of row -->
-	</div>
-	<!-- end of container-fluid -->
-</section>
+			<!-- end of container-fluid -->
+	</section>
+
 
 <!-- Warning Section Starts -->
 <!-- Older IE warning message -->
@@ -176,7 +201,8 @@
 <script src="{{asset('bo/assets/plugins/Waves/waves.min.js')}}"></script>
 <!-- Custom js -->
 <script type="text/javascript" src="{{asset('bo/assets/pages/elements.js')}}"></script>
-    <link rel="stylesheet" href="{{asset('fo/assets/pnotify/pnotify.custom.css')}}" />
+
+ <link rel="stylesheet" href="{{asset('fo/assets/pnotify/pnotify.custom.css')}}" />
     <script src="{{ asset('fo/assets/pnotify/pnotify.custom.js')}}"></script>
  <script>
             {% for flashMessage in app.session.flashbag.get('success') %}
@@ -192,7 +218,7 @@
             {% for flashMessage in app.session.flashbag.get('notice') %}
                 new PNotify({
                     title: 'Notification',
-                    type: 'success',
+                    type: 'notification',
                     text: "{{ flashMessage }}",
                     animation: "fade",
                     delay: 4000,
@@ -201,11 +227,11 @@
 
              {% for flashMessage in app.session.flashbag.get('error') %}
                 new PNotify({
-                    title: 'Notification',
+                    title: 'Erreur',
                     type: 'error',
                     text: "{{ flashMessage }}",
                     animation: "fade",
-                    delay: 2000,
+                    delay: 3000,
                 });
             {% endfor %}
             // {% for key, flashMessage in app.session.flashbag.get('error') %}

@@ -73,4 +73,22 @@ class MailerService
 
 
 
+    public function sendMailToNewRegistredCustomer($emailCustomer, $password)
+    {
+        $templateNewRegisterCustomer = "mail/customermail/confirm-registration-customer.html.twig";
+        $parametersMail = [
+                            'newCustomerPass' => $password,
+                            ];
+        $template     = $this->template->render($templateNewRegisterCustomer, $parametersMail);
+        $message      = (new \Swift_Message('Hello Email'))
+                        ->setFrom('symfony9494@gmail.com')
+                        ->setTo($emailCustomer)
+                        ->setBody($template, 'text/html') ;
+
+        $this->mailer->send($message);
+
+        return true;
+    }
+
+
 }

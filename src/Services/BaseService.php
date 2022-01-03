@@ -15,6 +15,10 @@ abstract class BaseService
       //  dd($_id);
       return $result = $this->getRepository()->find($_id);
    }
+   public function findOneBy(array $_parameters)
+   {
+     return  $this->getRepository()->findBy($_parameters);
+   }
 
    /**
     * find alls 
