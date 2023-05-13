@@ -37,7 +37,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="front_show_one_article")
+     * @Route("/show/{id}", name="front_show_one_article", methods={"GET"})
      */
     public function showOneArtilce(Request $request, $id)
     {
@@ -68,5 +68,15 @@ class ArticleController extends AbstractController
                                                             );
 
         # code...
+    }
+
+    /**
+     * 
+     * @Route("/api/search", name="front_search_one_article", methods={"GET"})
+     * @return void
+     */
+    public function check()
+    {
+        dd('ici');
     }
 }
