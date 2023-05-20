@@ -36,9 +36,12 @@ class CategoryRepository extends ServiceEntityRepository
         WHERE category.id=$id
         ";
         
-        $statement = $connexion->prepare($sql);
-        $statement->execute();
-        $results = $statement->fetchAll();
+        /** deprecié sur dbal */
+        // $statement = $connexion->prepare($sql);
+        // $statement->execute();
+        // $results = $statement->fetchAllAssociative();
+        /** nouvelle approche */
+        $results = $connexion->executeQuery($sql)->fetchAllAssociative();
 
         return $results;
     }
