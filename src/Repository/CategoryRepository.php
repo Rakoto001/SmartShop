@@ -28,21 +28,15 @@ class CategoryRepository extends ServiceEntityRepository
      */
     public function findAllArticlesByCategId($id)
     {
+        $results = [];
 
         $results = $this->createQuery()
-                      ->leftjoin('c.articles', 'a')
-                      ->addSelect('a')
-                      ->where('a.category= :id')
-                      ->setParameter('id', $id)
-                      ->getQuery()
-                      ->getArrayResult();
-
-
-
-
-// dd($query->getArrayResult());
-
-
+                        ->leftjoin('c.articles', 'a')
+                        ->addSelect('a')
+                        ->where('a.category= :id')
+                        ->setParameter('id', $id)
+                        ->getQuery()
+                        ->getArrayResult();
 
 
         // /** erreur concernant ID */
@@ -52,16 +46,6 @@ class CategoryRepository extends ServiceEntityRepository
         // ON articles.category_id=category.id 
         // WHERE category.id=$id
         // ";
-
-        // $stmt = $connexion->prepare($sql);
-        // $resultSet = $stmt->executeQuery()->fetchAllAssociative();
-        // dd($resultSet);
-        /** deprecié sur dbal */
-        // $statement = $connexion->prepare($sql);
-        // $statement->execute();
-        // $results = $statement->fetchAllAssociative();
-        /** nouvelle approche */
-        // $results = $connexion->executeQuery($sql)->fetchAll();
 
         return $results;
     }
