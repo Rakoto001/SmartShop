@@ -23,7 +23,7 @@ class CategorieController extends AbstractController
     }
    
     /**
-     * @Route("/show/{id}", name="front_categorie_article_show")
+     * @Route("/show-one/{id}", name="front_categorie_article_show")
      */
     public function showAllArticleByCategorie($id)
     {
@@ -36,9 +36,7 @@ class CategorieController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/show/{id}", name="front_article_show_one")
-     */
+   
     public function showOneArtilce(Request $request, $id)
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
