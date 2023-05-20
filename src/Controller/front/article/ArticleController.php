@@ -72,11 +72,11 @@ class ArticleController extends AbstractController
 
     /**
      * 
-     * @Route("/api/search", name="front_search_one_article", methods={"GET"})
+     * @Route("/api/search/{name}", name="front_search_one_article", methods={"GET"})
      * @return void
      */
-    public function check()
+    public function check($name)
     {
-        dd('ici');
+        dd($name);
     }
 }

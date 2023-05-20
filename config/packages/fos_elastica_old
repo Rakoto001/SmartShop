@@ -1,0 +1,29 @@
+# Read the documentation: https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/doc/setup.md
+fos_elastica:
+    clients:
+        default: { url: '%env(ELASTICSEARCH_URL)%' }
+    indexes:
+        app:
+            finder: ~
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            name_analyzer:
+                                type: custom
+                                tokenizer: standard
+                                filter: [standard, lowercase, asciifolding, elision]
+            properties:
+                Articles:
+                    mappings:
+                        name:
+                            type: completion
+                            analyzer: name_analyzer
+                            search_analyzer: name_analyzer
+                            payloads: true
+                    persistence:
+                        driver: orm
+                        model: App\Entity\Articles
+                        provider: ~
+                        listener: ~
+                        finder: ~
