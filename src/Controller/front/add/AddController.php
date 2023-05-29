@@ -62,6 +62,22 @@ class AddController extends AbstractController
         return $this->redirectToRoute('front_main');
     }
 
+     /**
+     * @Route("/adds/edit/{id]/{quantity}", name="adds_edit_list")
+     */
+    public function FunctionName(int $id, int $quantity)
+    {
+
+        dd('adns la redir');
+
+        
+        return $this->redirectToRoute('adds_new_cart', [
+            'id' => $id,
+            'quantity' => $quantity,
+
+        ]);
+    }
+
 
     /**
      * @Route("/adds/list", name="adds_list")
