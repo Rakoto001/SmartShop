@@ -40,7 +40,6 @@ class AddController extends AbstractController
          * 
          */
         $alls = $request->request->all();
-        // dump($alls);
         // $test = ($request->getContent());
         // dd($test);
         //le panier
@@ -52,13 +51,10 @@ class AddController extends AbstractController
 
         // si user non connnecté : redirect to login
         if (!$currentCustomer instanceof User) {
-            $routeName['route'] = $request->attributes->get('_route');
-            $routeParams = $request->attributes->get('_route_params');
-            $mixRouteParamsName = array_merge($routeName, $routeParams);
-            $session->set('mixRouteParamsName', $mixRouteParamsName);
+          
+            $this->addFlash('notice', 'Vous devriez vous vonnecter avant');
            
             return $this->redirectToRoute('front_login');
-            
         }
         $session->set('cart', $cart);
         $this->addFlash('success', 'Votre article a été ajouté dans le panier');

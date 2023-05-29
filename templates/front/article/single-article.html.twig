@@ -38,6 +38,36 @@
 
 <!--   END MODALS  -->
 
+{% for flashMessage in app.session.flashbag.get('success') %}
+    new PNotify({
+        title: 'Notification',
+        type: 'success',
+        text: "{{ flashMessage }}",
+        animation: "fade",
+        delay: 1000,
+    });
+{% endfor %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    new PNotify({
+        title: 'Notification',
+        type: 'success',
+        text: "{{ flashMessage }}",
+        animation: "fade",
+        delay: 2000,
+    });
+{% endfor %}
+
+ {% for flashMessage in app.session.flashbag.get('error') %}
+    new PNotify({
+        title: 'Notification',
+        type: 'error',
+        text: "{{ flashMessage }}",
+        animation: "fade",
+        delay: 1000,
+    });
+{% endfor %}
+
 
 <section class="bg-light">
         <div class="container pb-5">

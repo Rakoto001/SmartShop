@@ -5,8 +5,7 @@ $(document).ready(function(){
         var ajaxcontrollerpath = $(this).attr('ajax-path');
         let id = $(this).attr('article-id');
         let quantity = $('#cart-quantity span').html();
-        console.log(typeof(quantity));
-        console.log(quantity);
+       
 
         $.ajax({
             type: 'POST',
@@ -14,6 +13,9 @@ $(document).ready(function(){
             dataType: 'json',
             data: {"product-quanity": quantity},
         });
+
+        // réinitialiser la valeur de la quantity
+        $('#cart-quantity span').html('1');
 
         
     });
