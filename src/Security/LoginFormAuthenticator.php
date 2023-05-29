@@ -28,7 +28,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_login';
+    public const LOGIN_ROUTE = 'test';
 
     private $entityManager;
     private $urlGenerator;
@@ -113,6 +113,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
            
             return new RedirectResponse($targetPath);
         }
+        dd('dans loger');
         // For example : 
         $logger = new Logger('user-connected-logs');
         $user = $this->container->get('security.token_storage')->getToken()->getUser();

@@ -49,6 +49,7 @@ class ArticleController extends AbstractController
         return $this->render('front/article/single-article.html.twig', [
                                                                          'article'  => $article,
                                                                          'comments' => $commets,
+                                                                         'id' => $id
         ]);
     }
 

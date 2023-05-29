@@ -35,3 +35,4 @@ services:
     App\Event\Listener\TechnoEventListener:
         tags: 
             - { name: kernel.event_listener, event: send.mail.action }
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }

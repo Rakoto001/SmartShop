@@ -7,8 +7,11 @@ use Swift_Mailer;
 use App\Services\AddService;
 use App\Event\TechnoBuyEvent;
 use App\Services\MailerService;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class TechnoEventListener
 {
@@ -47,6 +50,25 @@ class TechnoEventListener
         }
 
         return true;
+    }
+
+    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
+    {
+        // Get the User entity.
+//         dd( $this->request->getSession());
+// // $targetPath = $request->getSession()->get('_security.'.'main'.'.target_path');
+
+
+//         $user = $event->getAuthenticationToken()->getUser();
+//         $url = $this->getTargetPath($event->getRequest()->getSession(), 'main');
+//         dd($url);
+
+        // // Update your field here.
+        // $user->setLastLogin(new \DateTime());
+
+        // // Persist the data to database.
+        // $this->em->persist($user);
+        // $this->em->flush();
     }
 
 }
