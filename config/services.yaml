@@ -9,6 +9,7 @@ parameters:
     template_mail_customer: 'mail/customermail/customer.html.twig'
     template_mail_admin: 'mail/adminmail/admin.html.twig'
     article_cover_upload_path : '/public/upload/bo/article'
+    indexe_elastic: 'smartshop'
 
 services:
     # default configuration for services in *this* file
@@ -29,6 +30,16 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+    
+    # App\Controller\UserController:
+    #     tags: ['controller.service_arguments']
+    #     public: true
+    #     arguments:
+    #         - '@fos_elastica.finder.user'
+
+    App\Controller\front\branche\BrancheController:
+        arguments:
+            $fosFinder: '@fos_elastica.finder.branches'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
