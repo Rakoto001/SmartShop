@@ -28,20 +28,24 @@ class CategoryRepository extends ServiceEntityRepository
      */
     public function findAllArticlesByCategId($id)
     {
-        
-        $connexion = $this->getEntityManager()->getConnection();
-        $sql = "
-        SELECT * FROM `articles` JOIN category 
-        ON articles.category_id=category.id 
-        WHERE category.id=$id
-        ";
-        
-        /** deprecié sur dbal */
-        // $statement = $connexion->prepare($sql);
-        // $statement->execute();
-        // $results = $statement->fetchAllAssociative();
-        /** nouvelle approche */
-        $results = $connexion->executeQuery($sql)->fetchAllAssociative();
+        $results = [];
+
+        $results = $this->createQuery()
+                        ->leftjoin('c.articles', 'a')
+                        ->addSelect('a')
+                        ->where('a.category= :id')
+                        ->setParameter('id', $id)
+                        ->getQuery()
+                        ->getArrayResult();
+
+
+        // /** erreur concernant ID */
+        // $connexion = $this->getEntityManager()->getConnection();
+        // $sql = "
+        // SELECT DISTINCT * FROM `articles`   JOIN category 
+        // ON articles.category_id=category.id 
+        // WHERE category.id=$id
+        // ";
 
         return $results;
     }

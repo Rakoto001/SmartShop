@@ -9,6 +9,7 @@
 /vendor/
 /vendor_old/
 /vendor_old_old/
+/*.bckp
 ###< symfony/framework-bundle ###
 
 ###> symfony/web-server-bundle ###

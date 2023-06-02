@@ -39,7 +39,6 @@ class MailerCommand extends Command
             ->setBody("Envoi Mail by Dan", 'text/html')
         ;
 
-        dd($message);
 
         $this->mailer->send($message);
         $output->writeln('Successful you send a self email');

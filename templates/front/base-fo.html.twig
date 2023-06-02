@@ -210,6 +210,12 @@
             </div>
             <div class="row">
             {% for article in articles %}
+<<<<<<< HEAD
+=======
+                <pre>
+                    {{ dump(articles) }}
+                </pre>
+>>>>>>> 15781efa198a340d7f096b86e85dd3bfbc7e87a5
             {% set name = article.name %}
             {% set content = article.content %}
             {% set coverArticle = article.coverImage %}
@@ -218,7 +224,7 @@
                
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
-                        <a href="{{ path('front_show_one_article', {'id': article.id}) }}">
+                        <a href="{{ path('front_article_show_one', {'id': article.id}) }}">
                             {# <img src="{{asset('fo//assets/img/feature_prod_01.jpg')}}" style="width:414px;height:310px" class="card-img-top" alt="..."> #}
                             <img src="/upload/bo/article/{{ coverArticle }}" style="width:414px;height:310px" class="card-img-top" alt="...">
                         </a>
@@ -284,7 +290,11 @@
                     type: 'success',
                     text: "{{ flashMessage }}",
                     animation: "fade",
+<<<<<<< HEAD
                     delay: 2000,
+=======
+                    delay: 1000,
+>>>>>>> 15781efa198a340d7f096b86e85dd3bfbc7e87a5
                 });
             {% endfor %}
 
@@ -304,7 +314,11 @@
                     type: 'error',
                     text: "{{ flashMessage }}",
                     animation: "fade",
+<<<<<<< HEAD
                     delay: 2000,
+=======
+                    delay: 1000,
+>>>>>>> 15781efa198a340d7f096b86e85dd3bfbc7e87a5
                 });
             {% endfor %}
             // {% for key, flashMessage in app.session.flashbag.get('error') %}

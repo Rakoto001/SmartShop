@@ -38,6 +38,36 @@
 
 <!--   END MODALS  -->
 
+{% for flashMessage in app.session.flashbag.get('success') %}
+    new PNotify({
+        title: 'Notification',
+        type: 'success',
+        text: "{{ flashMessage }}",
+        animation: "fade",
+        delay: 1000,
+    });
+{% endfor %}
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    new PNotify({
+        title: 'Notification',
+        type: 'success',
+        text: "{{ flashMessage }}",
+        animation: "fade",
+        delay: 2000,
+    });
+{% endfor %}
+
+ {% for flashMessage in app.session.flashbag.get('error') %}
+    new PNotify({
+        title: 'Notification',
+        type: 'error',
+        text: "{{ flashMessage }}",
+        animation: "fade",
+        delay: 1000,
+    });
+{% endfor %}
+
 
 <section class="bg-light">
         <div class="container pb-5">
@@ -206,7 +236,7 @@
                                 </li>
                             </ul>
 
-                            <form action="{{ path('adds_new_cart', {'id': article.id}) }}" method="POST">
+                            {# <form action="{{ path('adds_new_cart', {'id': article.id}) }}" method="POST"> #}
                                 <input type="hidden" name="product-title" value="Activewear">
                                 <div class="row">
                                     <div class="col-auto">
@@ -227,7 +257,7 @@
                                                 <input type="hidden" name="product-quanity" id="product-quanity" value="1">
                                             </li>
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-                                            <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
+                                            <li id="cart-quantity" class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
                                         </ul>
                                     </div>
@@ -237,16 +267,26 @@
                                         <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
                                     </div>
                                     <div class="col d-grid">
-                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
+                                        {# <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button> #}
+                                        <button id="add-cart"
+        
+                                        class="btn btn-success btn-lg add-cart-action"
+                                        value="addtocard"
+                                        ajax-path="{{ path('adds_new_cart', {'id': article.id, 'quantity':1}) }}"
+                                        article-id="{{ id }}"
+                                        
+                                        
+                                        >Add To Cart</button>
                                     </div>
                                 </div>
-                            </form>
+                            {# </form> #}
 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+       
     </section>
     <!-- Close Content -->
 
@@ -724,8 +764,12 @@
 
     {% endblock %}
 
-    {% block javasvript %}
+    {% block javascript %}
     {{ parent() }}
+
+    {# script pour ajax #}
+    <script src="{{asset('fo/assets/js/article.js')}}"></script>
+
 
     
     <!-- Start Slider Script -->

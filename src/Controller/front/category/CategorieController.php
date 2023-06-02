@@ -16,18 +16,21 @@ class CategorieController extends AbstractController
 {
 
     private $categoryService;
+    private $articleService;
 
-    public function __construct(CategoryService $_categoryService)
+    public function __construct(CategoryService $_categoryService, ArticleService $_articleService)
     {
         $this->categoryService = $_categoryService;
+        $this->articleService = $_articleService;
     }
    
     /**
-     * @Route("/show/{id}", name="front_categorie_article_show")
+     * @Route("/show-all/{id}", name="front_categorie_article_show")
      */
     public function showAllArticleByCategorie($id)
     {
-        $articles = $this->categoryService->getAllArticlesById($id);
+        
+        $articles = $this->categoryService->getAllArticlesById($id)[0]['articles'];
         $category = $this->categoryService->getOneById($id);
         
         return $this->render('front/category/list.html.twig', [
@@ -36,19 +39,17 @@ class CategorieController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/show/{id}", name="front_article_show_one")
-     */
-    public function showOneArtilce(Request $request, $id)
-    {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $datas = $this->articleService->findOneArticle($id, 'alls');
-        $article = $datas['article'];
-        $commets = $datas['comments'];
+   
+    // public function showOneArtilce(Request $request, $id)
+    // {
+    //     $user = $this->get('security.token_storage')->getToken()->getUser();
+    //     $datas = $this->articleService->findOneArticle($id, 'alls');
+    //     $article = $datas['article'];
+    //     $commets = $datas['comments'];
 
-        return $this->render('front/article/single-article.html.twig', [
-                                                                         'article'  => $article,
-                                                                         'comments' => $commets,
-        ]);
-    }
+    //     return $this->render('front/article/single-article.html.twig', [
+    //                                                                      'article'  => $article,
+    //                                                                      'comments' => $commets,
+    //     ]);
+    // }
 }

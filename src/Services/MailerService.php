@@ -65,7 +65,7 @@ class MailerService
 
         $this->mailer->send($message);
         //suppression de toute les sessions liées aux achats après confirmation de l'achat
-        // $this->addService->removeSessionAction();
+        $this->addService->removeSessionAction();
 
 
         return true;

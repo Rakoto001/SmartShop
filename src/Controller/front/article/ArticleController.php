@@ -37,7 +37,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="front_show_one_article", methods={"GET"})
+     * @Route("/show/{id}", name="front_article_show_one", methods={"GET"})
      */
     public function showOneArtilce(Request $request, $id)
     {
@@ -49,6 +49,7 @@ class ArticleController extends AbstractController
         return $this->render('front/article/single-article.html.twig', [
                                                                          'article'  => $article,
                                                                          'comments' => $commets,
+                                                                         'id' => $id
         ]);
     }
 

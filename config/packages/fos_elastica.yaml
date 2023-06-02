@@ -10,3 +10,14 @@ fos_elastica:
             persistence:
                 driver: orm
                 model: App\Entity\Branche
+    # indexes:
+    #     "%indexe_elastic%":
+    #         client: { url: '%env(resolve:ELASTICSEARCH_URL)%' }
+    #         types:
+    #             rezocar:
+    #                 mappings:
+    #                     country: ~
+    #                     place: ~
+    #                 persistence:
+    #                     driver: orm
+    #                     model: App\Entity\Branche

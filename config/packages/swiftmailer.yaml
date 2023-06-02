@@ -4,5 +4,5 @@ swiftmailer:
     port: 465
     host: smtp.gmail.com
     username: 'symfony9494@gmail.com'
-    password: 'GoogleSymfony2021'
+    password: 'lotmqvqvewadftma'
     spool: { type: 'memory' }

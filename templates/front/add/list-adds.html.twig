@@ -1,129 +1,165 @@
 {% extends "front/base-fo.html.twig" %}
-        {% block title %}
-           {{ parent() }} - Listes
-        {% endblock %}
-    
-        {% block stylesheet %}
-            {{ parent() }}
-        {% endblock %}
+{% block title %}
+	{{ parent() }}
+	- Listes
+{% endblock %}
 
-    {% block body %}
+{% block stylesheet %}
+	{{ parent() }}
+{% endblock %}
 
-    <div class="content-wrapper">
-         <!-- Container-fluid starts -->
-         <div class="container-fluid">
+{% block body %}
 
-    <div class="col-sm-12 p-0">
-    
-    
-  
-   
-        <div class="card">
-                     <div class="card-header">
-                     {% if cartArticles|length>0  %}
-                        <h5 class="card-header-text">Liste de vos achat dans le site :</h5>
-                     {% else %}
-                        <h5 class="card-header-text">La liste de vos achat seront affichées ici</h5>
-                     {% endif %}
-                     </div>
+	<div
+		class="content-wrapper">
+		<!-- Container-fluid starts -->
+		<div class="container-fluid">
 
-                     <form action="{{ path('article_buy') }}" method="POST">
-                     <div class="card-block">
-                        <div class="row">
-                           <div class="col-sm-12 table-responsive">
-                              <table class="table table-hover">
-                                 <thead>
-                                    <tr>
-                                       <th>Informations</th>
-                                       <th>Nom</th>
-                                       <th>Prix</th>
-                                       <th>Quantité</th>
-                                       <th>Action</th>
-                                    </tr>
-                                 </thead>
-                                 {% if cartArticles|length>0  %}
+			<div class="col-sm-12 p-0">
 
-                                 {% for cartArticle in cartArticles %}
-                                 {% set name = cartArticle.article.name %}
-                                 {% set price = cartArticle.article.price %}
-                                 {% set quantity = cartArticle.quantity %}
 
-                                
-                                 <tbody>
-                                 
-                                    <tr>
-                                       <td>1</td>
-                                       <td>{{ name|striptags|slice(0, 10) }}</td>
-                                       <td>{{ price }}</td>
-                                       <td>{{ quantity }}</td>
-                                       <td> 
-                                          <li class="list-inline-item border border-light rounded-circle text-center">
-                                             <a class="text-light text-decoration-none" href="{{ path('adds_remove', {'id':cartArticle.article.id}) }}"><i class="fas fa-trash-alt"></i></a>
-                                          </li>
-                                       </td>
-                                    </tr>
-                                  {% endfor %}
-                                  <tr>
-                                       <td>TOTAL</td>
-                                       <td>{{ total }} </td>
-                                  </tr>
+				<div class="card">
+					<div class="card-header">
+						{% if cartArticles|length>0  %}
+							<h5 class="card-header-text">Liste de vos achat dans le site :</h5>
+						{% else %}
+							<h5 class="card-header-text">La liste de vos achat seront affichées ici</h5>
+						{% endif %}
+					</div>
 
-                                   <tr>
-                                   {% if cartArticles|length>0 %}
-                                       <td> 
-                                          <button type="submit" class="btn btn-info waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title=".btn-info">ACHETER
-                                          </button>
-                                       </td>
-                                    {% endif %}
-                                  </tr>
+					<form action="{{ path('article_buy') }}" method="POST">
+						<div class="card-block">
+							<div class="row">
+								<div class="col-sm-12 table-responsive">
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>Informations</th>
+												<th>Nom</th>
+												<th>Prix</th>
+												<th>Quantité</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										{% if cartArticles|length>0  %}
 
-                                 </tbody>
+											{% for cartArticle in cartArticles %}
+												{% set name = cartArticle.article.name %}
+												{% set price = cartArticle.article.price %}
+												{% set quantity = cartArticle.quantity %}
 
-                                 {% endif %}
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                     </form>
-                  </div>
-    </div>
-    </div>
-                  </div>
-   
-    {% endblock %}
+												{# <pre>
+												                                   {{ dump(cartArticle) }}
+												                                </pre> #}
+												<tbody>
 
-        {% block javasvript %}
-            <script>
-            {% for flashMessage in app.session.flashbag.get('success') %}
-                new PNotify({
-                    title: 'Notification',
-                    type: 'success',
-                    text: "{{ flashMessage }}",
-                    animation: "fade",
-                    delay: 2000,
-                });
-            {% endfor %}
+													<tr  id="results-list-{{ cartArticle.article.id }}">
+														<td>1</td>
+														<td>{{ name|striptags|slice(0, 10) }}</td>
+														<td>{{ price }}</td>
+														{# <td>{{ quantity }}</td> #}
+														<td>
+															{{ quantity }}
+														{# <input type="text" class="myInput"> #}
+															{# <input 
+															                                         id="{{ cartArticle.article.id }}"
+															                                         type="number" 
+															                                         class="myInput" 
+															                                         name="name" 
+															                                         required
+															                                         minlength="4" 
+															                                         maxlength="4" 
+															                                         value="{{ quantity }}" 
+															                                         size="2">  #}
+														</td>
+														<td>
+															<li
+																class="list-inline-item border border-light rounded-circle text-center">
+																{# <a class="text-light text-decoration-none delete-one-larticle" href="{{ path('adds_remove', {'id':cartArticle.article.id}) }}"><i class="fas fa-trash-alt"></i></a> #}
+                                                <a class="text-light text-decoration-none delete-one-larticle"
+                                                   id-article="{{ cartArticle.article.id }}" 
+                                                   id-article-delete-{{ cartArticle.article.id }}="cartArticle.article.id" 
+                                                   url-ajax-delete="{{ path('adds_remove', {'id':cartArticle.article.id}) }}">
+																	<i class="fas fa-trash-alt"></i>
+																</a>
+															</li>
+														</td>
+													</tr>
+												{% endfor %}
+												<tr>
+													<td>TOTAL</td>
+													<td>{{ total }}
+													</td>
+												</tr>
 
-             {% for flashMessage in app.session.flashbag.get('error') %}
-                new PNotify({
-                    title: 'Notification',
-                    type: 'error',
-                    text: "{{ flashMessage }}",
-                    animation: "fade",
-                    delay: 2000,
-                });
-            {% endfor %}
-            // {% for key, flashMessage in app.session.flashbag.get('error') %}
-            //     new PNotify({
-            //         title: 'Notification',
-            //         type: 'error',
-            //         text: "{{ flashMessage }}",
-            //         animation: "fade",
-            //         delay: 6000,
-            //     });
-            // {% endfor %}
-        </script>
-        
-        {% endblock %}
-         
+												<tr>
+													{% if cartArticles|length>0 %}
+														<td>
+															<button type="submit" class="btn btn-info waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title=".btn-info">ACHETER
+															</button>
+														</td>
+													{% endif %}
+												</tr>
 
+											</tbody>
+
+										{% endif %}
+									</table>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}}
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="{{asset('fo/assets/js/article.js')}}"></script>
+	{# <script>
+	         $('#input-modif-quantity').click(function() {
+	
+	            console.log('test');
+	    
+	            // text = $('textarea').val();
+	            // $('div').html(text);
+	          });
+	    
+	</script> #}
+	{# <script>
+	            {% for flashMessage in app.session.flashbag.get('success') %}
+	                new PNotify({
+	                    title: 'Notification',
+	                    type: 'success',
+	                    text: "{{ flashMessage }}",
+	                    animation: "fade",
+	                    delay: 2000,
+	                });
+	            {% endfor %}
+	
+	             {% for flashMessage in app.session.flashbag.get('error') %}
+	                new PNotify({
+	                    title: 'Notification',
+	                    type: 'error',
+	                    text: "{{ flashMessage }}",
+	                    animation: "fade",
+	                    delay: 2000,
+	                });
+	            {% endfor %}
+	            // {% for key, flashMessage in app.session.flashbag.get('error') %}
+	            //     new PNotify({
+	            //         title: 'Notification',
+	            //         type: 'error',
+	            //         text: "{{ flashMessage }}",
+	            //         animation: "fade",
+	            //         delay: 6000,
+	            //     });
+	            // {% endfor %}
+	        </script> #}
+
+{% endblock %}
