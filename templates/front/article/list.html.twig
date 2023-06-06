@@ -46,6 +46,7 @@
                         </div>
                 </div>
                 
+                
             {% endfor %}
             
         {% else %}
@@ -64,10 +65,41 @@
         
         </div>
         </div>
+        {# style="    margin-left: 31em;" #}
+        <div class="bas-pagination">
+            <ul class="pagination">
+              <li class="page-item disabled">
+                <a class="page-link" href="#">&laquo;</a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">2</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">3</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">4</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">5</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">&raquo;</a>
+              </li>
+            </ul>
+          </div>
     </section>
+   
     {% endblock %}
 
         {% block javascript %}
-        {{ parent() }}
+        {# {{ parent() }} #}
+        <link href="https://bootswatch.com/5/materia/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{asset('fo/assets/css/pagination.css')}}">
+
+
         {% endblock %}
 
