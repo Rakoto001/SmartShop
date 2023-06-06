@@ -41,6 +41,10 @@ services:
         arguments:
             $fosFinder: '@fos_elastica.finder.branches'
 
+    App\Services\FosElasticaService:
+        arguments:
+            $fosFinder: '@fos_elastica.finder.articles'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     App\Event\Listener\TechnoEventListener:

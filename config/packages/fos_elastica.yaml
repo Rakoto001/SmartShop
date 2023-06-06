@@ -4,6 +4,13 @@ fos_elastica:
         default: { url: '%env(resolve:ELASTICSEARCH_URL)%' }
     indexes:
         # "%indexe_elastic%appellation":*
+        articles:
+            properties:
+                name: {type: text}
+                content: {type: text}
+            persistence:
+                driver: orm
+                model: App\Entity\Articles
         branches:
             properties:
                 country: {type: text}
