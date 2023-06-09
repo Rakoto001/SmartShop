@@ -10,6 +10,8 @@ parameters:
     template_mail_admin: 'mail/adminmail/admin.html.twig'
     article_cover_upload_path : '/public/upload/bo/article'
     indexe_elastic: 'smartshop'
+    base_url: 'http://127.0.0.1:8000'
+    validation_path: 'activation_register_visitor'
 
 services:
     # default configuration for services in *this* file
@@ -40,6 +42,10 @@ services:
     App\Controller\front\branche\BrancheController:
         arguments:
             $fosFinder: '@fos_elastica.finder.branches'
+
+    App\Services\FosElasticaService:
+        arguments:
+            $fosFinder: '@fos_elastica.finder.articles'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

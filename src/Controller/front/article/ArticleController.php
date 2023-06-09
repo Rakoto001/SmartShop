@@ -3,10 +3,11 @@
 namespace App\Controller\front\article;
 
 use App\Services\ArticleService;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Services\FosElasticaService;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/article")
@@ -15,10 +16,13 @@ class ArticleController extends AbstractController
 {
 
     private $articleService;
+    private $fosFinder;
+    private $fosEs;
 
-    public function __construct(ArticleService $_articleService)
+    public function __construct(ArticleService $_articleService, FosElasticaService $fosEs)
     {
         $this->articleService = $_articleService;
+        $this->fosEs = $fosEs;
     }
    
     /**
@@ -61,8 +65,12 @@ class ArticleController extends AbstractController
     public function articleSearch(Request $request)
     {
         $alls = $request->query->all();
-        $articleSearchedResults = $this->articleService->searchArticles($alls);
+        // sans utilisation ES
+        // $articleSearch = $alls['article-search'];
+        // $articleSearchedResults = $this->articleService->searchArticles($alls);
 
+        $articleSearchedResults  = $this->fosEs->makeESearch($alls);
+        
         return $this->render('front/article/list.html.twig', [
                                                                 'articles' => $articleSearchedResults,
                                                              ]

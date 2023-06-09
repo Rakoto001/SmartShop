@@ -34,7 +34,7 @@ class MailerCommand extends Command
         $template = "@presentation/bo/message/mail/mail_template.html.twig";
         
         $message = (new \Swift_Message('Hello Email'))
-            ->setFrom('symfony9494@gmail.com')
+            ->setFrom('danielorak1@gmail.com')
             ->setTo('rakotoarisondan@gmail.com')
             ->setBody("Envoi Mail by Dan", 'text/html')
         ;

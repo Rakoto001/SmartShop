@@ -65,6 +65,17 @@ class UserService extends BaseService
        return $this->manager->getRepository(User::class);
    }
 
+   public function getCurrentUser()
+   {
+       $currentValues = $this->container->get('security.token_storage')->getToken()->getUser();
+       if( $currentValues instanceof User) {
+
+        return $currentValues;
+       }
+
+        return null;
+   }
+
    /**
     * check user for registratin of for update
     */
@@ -277,12 +288,50 @@ class UserService extends BaseService
              ->setPassword($this->encoder->encodePassword($user, $randomUserPass))
              ->setConfirmationAccount(0)
              ->setAvatar('https://randomuser.me/api/portraits/');
+            
         $this->save($user);
         
-        $this->mailer->sendMailToNewRegistredCustomer($aParamsUserRegister['email'], $randomUserPass);
+        // $this->mailer->sendMailToNewRegistredCustomer($aParamsUserRegister['email'], $randomUserPass);
+        $this->mailer->sendMailToNewRegistredCustomer($aParamsUserRegister['email'], $aParamsUserRegister['email']);
 
 
         return $user;
+
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $email
+     * @return User|null
+     */
+    public function activateByMail(string $email) :?array
+    {
+        $randomUserPass = bin2hex(openssl_random_pseudo_bytes(4));
+
+        $oUser = $this->getRepository()->findBy(['email' => $email]);
+        
+        if (count($oUser) > 0) {
+
+            $oUser = $oUser[0];
+            if ($oUser instanceof User) {
+                
+                $oUser->setPassword($this->encoder->encodePassword($oUser, $randomUserPass))
+                      ->setStatus(1);
+
+                // envoi du nouveau password vers l'utilisateur qui a confirmé l'activation
+                $this->mailer->sendMailToNewRegistredCustomer($oUser->getEmail(), $oUser->getEmail(),$randomUserPass,  1);
+                      
+                $this->save($oUser);
+                $params = [
+                    'user' => $oUser,
+                    'password' => $randomUserPass
+                ];
+                return $params;
+            }
+        }
+
+        return null;
 
     }
 

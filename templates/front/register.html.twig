@@ -1,249 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<title>Quantum Able Bootstrap 4 Admin Dashboard Template</title>
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
+	<head>
+		<title>Quantum Able Bootstrap 4 Admin Dashboard Template</title>
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+			<![endif]-->
 
 
-	<!-- Meta -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<meta name="description" content="codedthemes">
-	<meta name="keywords"
-		  content=", Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
-	<meta name="author" content="codedthemes">
+		<!-- Meta -->
+		<meta charset="utf-8"> <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
 
-	<!-- Favicon icon -->
-	<link rel="shortcut icon" href="{{asset('bo/assets/images/favicon.png')}}" type="image/x-icon">
-	<link rel="icon" href="{{asset('bo/assets/images/favicon.ico')}}" type="image/x-icon">
+	</head>
+	<body>
 
-	<!-- Google font-->
-   <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet">
+		<section class="vh-100" style="background-color: #eee;">
+			<div class="container h-100">
+				<div class="row d-flex justify-content-center align-items-center h-100">
+					<div class="col-lg-12 col-xl-11">
+						<div class="card text-black" style="border-radius: 25px;">
+							<div class="card-body p-md-5">
+								<div class="row justify-content-center">
+									<div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-	<!-- Font Awesome -->
-	<link href="{{asset('bo/assets/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+										<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-	<!--ico Fonts-->
-	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/icon/icofont/css/icofont.css')}}">
+										{# <form class="mx-1 mx-md-4"> #}
+											{{ form_start(registerForm,{'method':'POST', 'type':'submit', 'attr':{'class':'md-float-material', 'id':'form-user', 'enctype':'multipart/form-data'}         }) }}
 
-    <!-- Required Fremwork -->
-    <link rel="stylesheet" type="text/css" href="{{asset('bo/assets/plugins/bootstrap/css/bootstrap.min.css')}}">
-
-	<!-- waves css -->
-	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/plugins/Waves/waves.min.css')}}">
-
-	<!-- Style.css -->
-	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/main.css')}}">
-
-	<!-- Responsive.css-->
-	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/responsive.css')}}">
-
-	<!--color css-->
-	<link rel="stylesheet" type="text/css" href="{{asset('bo/assets/css/color/color-1.min.css')}}" id="color"/>
-
-</head>
-<body>
-
-<section class="login common-img-bg">
-		<!-- Container-fluid starts -->
-		<div class="container-fluid">
-			<div class="row">
-					<div class="col-sm-12">
-						<div class="login-card card-block bg-white">
-							{{ form_start(registerForm,{'method':'POST', 'type':'submit', 'attr':{'class':'md-float-material', 'id':'form-user', 'enctype':'multipart/form-data'}         }) }}
-								<div class="text-center">
-									<img src="assets/images/logo-black.png" alt="logo">
-								</div>
-								<h3 class="text-center txt-primary">Create an account </h3>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="md-input-wrapper">
-											{# <input type="text" class="md-form-control" required=""> #}
-											{{form_widget(registerForm.username,{'attr':{
-                                                             'class':"md-form-control",
-                                                              'placeholder':"nom"
+											<div class="d-flex flex-row align-items-center mb-4">
+												<i class="fas fa-user fa-lg me-3 fa-fw"></i>
+												<div class="form-outline flex-fill mb-0">
+													{# <input type="text" id="form3Example1c" class="form-control"/> #}
+													{{form_widget(registerForm.username,{'attr':{
+															 'id':'form3Example1c',
+															 'class':'form-control',
+															 'type':'text',
+                                                             'placeholder':'nom'
                                                               					}
 
                                      										})
-                    						}}
-											<label>Nom *</label>
-										</div>
+                    								}}
+													<label class="form-label" for="form3Example1c">Votre nom*</label>
+												</div>
+											</div>
+
+											<div class="d-flex flex-row align-items-center mb-4">
+												<i class="fas fa-user fa-lg me-3 fa-fw"></i>
+												<div class="form-outline flex-fill mb-0">
+													{# <input type="text" id="form3Example1c" class="form-control"/> #}
+													{{form_widget(registerForm.lastname,{'attr':{
+															 'id':'form3Example1c',
+															 'class':'form-control',
+															 'type':'text',
+                                                             'placeholder':'prénom'
+                                                              					}
+
+                                     										})
+                    								}}
+													<label class="form-label" for="form3Example1c">Votre Prénom*</label>
+												</div>
+											</div>
+
+											<div class="d-flex flex-row align-items-center mb-4">
+												<i class="fas fa-user fa-lg me-3 fa-fw"></i>
+												<div class="form-outline flex-fill mb-0">
+													{# <input type="text" id="form3Example1c" class="form-control"/> #}
+													{{form_widget(registerForm.gender,{'attr':{
+															 'id':'form3Example1c',
+															 'class':'form-control',
+															 'type':'text',
+                                                             'placeholder':''
+                                                              					}
+
+                                     										})
+                    								}}
+													<label class="form-label" for="form3Example1c">Sexe*</label>
+												</div>
+											</div>
+
+											<div class="d-flex flex-row align-items-center mb-4">
+												<i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+												<div class="form-outline flex-fill mb-0">
+													{# <input type="email" id="form3Example3c" class="form-control"/> #}
+													{{form_widget(registerForm.email,{'attr':{
+															 'id':'form3Example3c',
+															 'class':'form-control',
+															 'type':'email',
+                                                             'placeholder':'e-mail'
+                                                              					}
+
+                                     										})
+                    								}}
+													<label class="form-label" for="form3Example3c">Votre Email*</label>
+												</div>
+											</div>
+
+											<div class="d-flex flex-row align-items-center mb-4">
+												<i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+												<div class="form-outline flex-fill mb-0">
+													{# <input type="password" id="form3Example4c" class="form-control"/> #}
+													<label class="form-label" for="form3Example4c">Votre mots de passe sera envoyé par mail pour confirmation</label>
+												</div>
+											</div>
+
+											{# <div class="d-flex flex-row align-items-center mb-4">
+												<i class="fas fa-key fa-lg me-3 fa-fw"></i>
+												<div class="form-outline flex-fill mb-0">
+													<input type="password" id="form3Example4cd" class="form-control"/>
+													<label class="form-label" for="form3Example4cd">Repeat your password</label>
+												</div>
+											</div> #}
+
+											{# <div class="form-check d-flex justify-content-center mb-5">
+												<input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c"/>
+												<label class="form-check-label" for="form2Example3">
+													I agree all statements in
+													<a href="#!">Terms of service</a>
+												</label>
+											</div> #}
+
+											<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+												<button type="submit" class="btn btn-primary btn-lg">S'inscrire</button>
+											</div>
+
+											{{ form_end(registerForm) }} 
+										{# </form> #}
+
 									</div>
-									<div class="col-md-6">
-										<div class="md-input-wrapper">
-											{{form_widget(registerForm.lastname,{'attr':{
-                                                             'class':"md-form-control",
-                                                              'placeholder':"prénom"
-                                                              					}
+									<div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-                                     										})
-                    						}}
-											<label>Prénom *</label>
-										</div>
-									</div>
-								</div>
-								<div class="md-input-wrapper">
-									{{form_widget(registerForm.email,{'attr':{
-                                                             'class':"md-form-control",
-                                                              'placeholder':"prénom"
-                                                              					}
-
-                                     										})
-                    						}}
-									<label>Email *</label>
-								</div>
-								<div class="md-input-wrapper">
-									{{form_widget(registerForm.gender,{'attr':{
-                                                             'class':"md-form-control",
-                                                              'placeholder':""
-                                                              					}
-
-                                     										})
-                    						}}
-									<label>Password</label>
-								</div>
-								<div class="md-input-wrapper">
-									{# <input type="password" class="md-form-control" required="required">
-									<label>Confirm Password</label> #}
-								</div>
-
-								<div class="rkmd-checkbox checkbox-rotate checkbox-ripple b-none m-b-20">
-									<label class="input-checkbox checkbox-primary">
-										<input type="checkbox" id="checkbox">
-										<span class="checkbox"></span>
-									</label>
-									<div class="captions">Remember Me</div>
-								</div>
-								<div class="col-xs-10 offset-xs-1">
-									<button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light m-b-20">Sign up
-									</button>
-								</div>
-								<div class="row">
-									<div class="col-xs-12 text-center">
-										<span class="text-muted">Already have an account?</span>
-										<a href="login1.html" class="f-w-600 p-l-5"> Sign In Here</a>
+										<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" class="img-fluid" alt="Sample image">
 
 									</div>
 								</div>
-								{{ form_rest(registerForm) }}
-    							{{ form_end(registerForm) }} 
-							<!-- end of form -->
+							</div>
 						</div>
-						<!-- end of login-card -->
 					</div>
-					<!-- end of col-sm-12 -->
 				</div>
-				<!-- end of row-->
 			</div>
-			<!-- end of container-fluid -->
-	</section>
+		</section>
 
 
-<!-- Warning Section Starts -->
-<!-- Older IE warning message -->
-<!--[if lt IE 9]>
-<div class="ie-warning">
-	<h1>Warning!!</h1>
-	<p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-	<div class="iew-container">
-		<ul class="iew-download">
-			<li>
-				<a href="http://www.google.com/chrome/">
-					<img src="{{asset('bo/assets/images/browser/chrome.png')}}" alt="Chrome">
-					<div>Chrome</div>
-				</a>
-			</li>
-			<li>
-				<a href="https://www.mozilla.org/en-US/firefox/new/">
-					<img src="{{asset('bo/assets/images/browser/firefox.png')}}" alt="Firefox">
-					<div>Firefox</div>
-				</a>
-			</li>
-			<li>
-				<a href="http://www.opera.com">
-					<img src="{{asset('bo/assets/images/browser/opera.png')}}" alt="Opera">
-					<div>Opera</div>
-				</a>
-			</li>
-			<li>
-				<a href="https://www.apple.com/safari/">
-					<img src="{{asset('bo/assets/images/browser/safari.png')}}" alt="Safari">
-					<div>Safari</div>
-				</a>
-			</li>
-			<li>
-				<a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-					<img src="{{asset('bo/assets/images/browser/ie.png')}}" alt="">
-					<div>IE (9 & above)</div>
-				</a>
-			</li>
-		</ul>
-	</div>
-	<p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
-<!-- Warning Section Ends -->
-<!-- Required Jqurey -->
-<script src="{{asset('bo/assets/plugins/jquery/dist/jquery.min.js')}}"></script>
-<script src="{{asset('bo/assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-<script src="{{asset('bo/assets/plugins/tether/dist/js/tether.min.js')}}"></script>
-
-<!-- Required Fremwork -->
-<script src="{{asset('bo/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
-
-<!-- waves effects.js -->
-<script src="{{asset('bo/assets/plugins/Waves/waves.min.js')}}"></script>
-<!-- Custom js -->
-<script type="text/javascript" src="{{asset('bo/assets/pages/elements.js')}}"></script>
-
- <link rel="stylesheet" href="{{asset('fo/assets/pnotify/pnotify.custom.css')}}" />
-    <script src="{{ asset('fo/assets/pnotify/pnotify.custom.js')}}"></script>
- <script>
-            {% for flashMessage in app.session.flashbag.get('success') %}
-                new PNotify({
-                    title: 'Notification',
-                    type: 'success',
-                    text: "{{ flashMessage }}",
-                    animation: "fade",
-                    delay: 2000,
-                });
-            {% endfor %}
-
-            {% for flashMessage in app.session.flashbag.get('notice') %}
-                new PNotify({
-                    title: 'Notification',
-                    type: 'notification',
-                    text: "{{ flashMessage }}",
-                    animation: "fade",
-                    delay: 4000,
-                });
-            {% endfor %}
-
-             {% for flashMessage in app.session.flashbag.get('error') %}
-                new PNotify({
-                    title: 'Erreur',
-                    type: 'error',
-                    text: "{{ flashMessage }}",
-                    animation: "fade",
-                    delay: 3000,
-                });
-            {% endfor %}
-            // {% for key, flashMessage in app.session.flashbag.get('error') %}
-            //     new PNotify({
-            //         title: 'Notification',
-            //         type: 'error',
-            //         text: "{{ flashMessage }}",
-            //         animation: "fade",
-            //         delay: 6000,
-            //     });
-            // {% endfor %}
-        </script>
-
-</body>
+	</body>
 </html>
