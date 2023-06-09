@@ -3,6 +3,14 @@ swiftmailer:
     auth_mode: login
     port: 465
     host: smtp.gmail.com
-    username: 'symfony9494@gmail.com'
-    password: 'lotmqvqvewadftma'
+    username: 'rakotoarisondan@gmail.com'
+    password: 'sbfufmqvypsmpogj'
     spool: { type: 'memory' }
+
+
+
+    #  username: 'symfony9494@gmail.com'
+    # password: 'lotmqvqvewadftma'
+
+      # username: 'rakotoarisondan@gmail.com'
+    # password: 'sbfufmqvypsmpogj'

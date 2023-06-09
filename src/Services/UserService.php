@@ -65,6 +65,17 @@ class UserService extends BaseService
        return $this->manager->getRepository(User::class);
    }
 
+   public function getCurrentUser()
+   {
+       $currentValues = $this->container->get('security.token_storage')->getToken()->getUser();
+       if( $currentValues instanceof User) {
+
+        return $currentValues;
+       }
+
+        return null;
+   }
+
    /**
     * check user for registratin of for update
     */
@@ -277,6 +288,7 @@ class UserService extends BaseService
              ->setPassword($this->encoder->encodePassword($user, $randomUserPass))
              ->setConfirmationAccount(0)
              ->setAvatar('https://randomuser.me/api/portraits/');
+            
         $this->save($user);
         
         $this->mailer->sendMailToNewRegistredCustomer($aParamsUserRegister['email'], $randomUserPass);

@@ -80,9 +80,9 @@ class MailerService
                             'newCustomerPass' => $password,
                             ];
         $template     = $this->template->render($templateNewRegisterCustomer, $parametersMail);
-        $message      = (new \Swift_Message('Hello Email'))
+        $message      = (new \Swift_Message('Confirmation de votre compte smart'))
                         ->setFrom('symfony9494@gmail.com')
-                        ->setTo($emailCustomer)
+                        ->setTo('rakotoarisondan@gmail.com')
                         ->setBody($template, 'text/html') ;
 
         $this->mailer->send($message);
