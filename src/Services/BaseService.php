@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 
 abstract class BaseService
@@ -32,7 +33,7 @@ abstract class BaseService
    /**
     * save obj
     */
-   public function save($_object)
+   public function save(User $_object)
    {
      $this->manager->persist($_object);
 

@@ -73,13 +73,25 @@ class MailerService
 
 
 
-    public function sendMailToNewRegistredCustomer($emailCustomer, $password)
+    public function sendMailToNewRegistredCustomer($emailCustomer, $email, $userRegistredPassword = null, $activation = 0)
     {
+
+
+
+        $validation_path = ($this->container->getParameter('validation_path'));
         $templateNewRegisterCustomer = "mail/customermail/confirm-registration-customer.html.twig";
         $parametersMail = [
-                            'newCustomerPass' => $password,
-                            ];
-        $template     = $this->template->render($templateNewRegisterCustomer, $parametersMail);
+                            'newCustomerEmail' => $email,
+                            'urlBaseSmart' => $validation_path,
+                            'userRegistredPassword' => $userRegistredPassword,
+                            'activation' => $activation
+                        ];
+                        try {
+                            //code...
+                            $template     = $this->template->render($templateNewRegisterCustomer, $parametersMail);
+                        } catch (\Throwable $th) {
+                            dd($th->getMessage());
+                        }
         $message      = (new \Swift_Message('Confirmation de votre compte smart'))
                         ->setFrom('symfony9494@gmail.com')
                         ->setTo('rakotoarisondan@gmail.com')

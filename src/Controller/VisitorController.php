@@ -80,9 +80,11 @@ class VisitorController extends AbstractController
             $aParamsUserRegister = ($request->request->all()['registration']);
             unset($aParamsUserRegister['_token']);
             try {
+                
                 $this->userService->registerNewUser($aParamsUserRegister);
 
             } catch (\Throwable $error) {
+                dd($error->getMessage());
             $this->addFlash('error', 'cette compte existe déjà');
             return $this->redirectToRoute('user_register');
 
@@ -103,7 +105,58 @@ class VisitorController extends AbstractController
 
     }
 
+      /**
+     * @Route("/check/mail", name="check_mail")
+     *
+     */
+    public function checkMailController()
+    {
+        $validation_path = ($this->getParameter('validation_path'));
+        // dd($validation_path);
+        $email = 'sf@gmail.com';
+        $activation = 1;
+        $userRegistredPassword = 'sdsdfsdfsd';
+        $templateNewRegisterCustomer = "mail/customermail/confirm-registration-customer.html.twig";
+        $parametersMail = [
+                            'newCustomerEmail' => $email,
+                            'urlBaseSmart' => $validation_path,
+                            'userRegistredPassword' => $userRegistredPassword,
+                            'activation' => $activation
+                            ];
+
+
+        return $this->render('mail/customermail/confirm-registration-customer.html.twig', [
+            'parametersMail' => $parametersMail
+            ]
+        );
+                            
+    }
+
     
+      /**
+     * @Route("/visitor/activation/{email}", name="activation_register_visitor")
+     *
+     */
+    public function activateRegisterVisitor(string $email, Request $request)
+    {
+        
+        $baseUrl = ($this->getParameter('base_url'));
+        $validation_path = ($this->getParameter('validation_path'));
+        $localBase = $baseUrl.$validation_path;
+        $parametters = $this->userService->activateByMail($email);
+        
+        if (is_array($parametters) ){
+       
+            return new Response('success');
+
+
+        }
+
+        return new Response('ERROR', 500);
+
+    }
+
+
     public function logout(): Response
     {
         return $this->render('visitor/index.html.twig', [
