@@ -30,7 +30,7 @@ class TechnoEventListener
     SessionInterface $session, 
     AddService $addService, 
     ContainerInterface $container,
-    UrlGeneratorInterface  $routes,
+    UrlGeneratorInterface  $routes
     ) {
         $this->mailerService = $mailer;
         $this->session = $session;
@@ -78,19 +78,13 @@ class TechnoEventListener
         // création route
         // https://stackoverflow.com/questions/8972069/how-redirect-in-onsecurityinteractivelogin-method-in-loginlistener-symfony2
       
-        
+       $dataRedirection =  $this->session->get('dataRedirection', []);
+       dd($dataRedirection);
 
         $response = new RedirectResponse($this->routes->generate('smart_user_profile'));
         return $response->send();
 
-        // return $response;  
-        // $response = new RedirectResponse($url);
-        // dd($routes);
-        // // en utilisant GetResponseForExceptionEvent $event
-        // $routes->setResponse($response); 
-        
-        // // Update your field here.
-        // $user->setLastLogin(new \DateTime());
+    
 
     }
 
