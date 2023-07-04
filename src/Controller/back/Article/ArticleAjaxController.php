@@ -22,6 +22,7 @@ class ArticleAjaxController extends AbstractController
     public function listArticleData(Request $request)
     {
         $allParametters = $request->request->all();
+        dd($allParametters);
         $parametters['order']  = $allParametters['order'];
         $parametters['start']  = $allParametters['start'];
         $parametters['length'] = $allParametters['length'];

@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.1-apache
 
 
 # install apache avec php 7.4
@@ -18,23 +18,23 @@ RUN apt update && apt install -yqq nodejs npm
 
 COPY . /var/www/
 
-# changer var/www/html en symfony var/www/public
-COPY ./docker/apache.conf /etc/apache2/sites-available/000-default.conf
+# # changer var/www/html en symfony var/www/public
+# COPY ./docker/apache.conf /etc/apache2/sites-available/000-default.conf
 
-ENV PATH="/composer/vendor/bin:$PATH" \
-    COMPOSER_ALLOW_SUPERUSER=1
+# ENV PATH="/composer/vendor/bin:$PATH" \
+#     COMPOSER_ALLOW_SUPERUSER=1
 
-RUN cd /var/www && \
-    composer install --no-plugins --no-scripts && \
-    composer update --no-plugins --no-scripts --ignore-platform-req=ext-gd
-    # composer update --lock && \
-    # composer config allow-plugins.acme/plugin true &&\
-    # composer install --no-scripts --no-interaction && \
-    # npm install && \
-    # npm run build
+# RUN cd /var/www && \
+#     composer install --no-plugins --no-scripts && \
+#     composer update --no-plugins --no-scripts --ignore-platform-req=ext-gd
+#     # composer update --lock && \
+#     # composer config allow-plugins.acme/plugin true &&\
+#     # composer install --no-scripts --no-interaction && \
+#     # npm install && \
+#     # npm run build
 
 
-# changer le /html en /www
-WORKDIR /var/www/
+# # changer le /html en /www
+# WORKDIR /var/www/
 
-EXPOSE 80
+# EXPOSE 80

@@ -10,6 +10,7 @@ use App\Form\ArticleType;
 use App\Services\ArticleService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -72,6 +73,20 @@ class ArticleController extends AbstractController
                                                                     ]
         );
     }
+
+
+      /**
+     * @Route("/fileuploadhandler", name="fileuploadhandler")
+     */
+    public function fileuploadhandler(Request $request)
+    {
+
+        dd($request->files);
+       
+
+        return new JsonResponse(200);
+    }
+
 
     /**
      * @Route("/edit/{id}", name="admin_article_edit")

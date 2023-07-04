@@ -16,6 +16,14 @@ $(document).ready(function(){
             url: ajaxcontrollerpath,
             dataType: 'json',
             data: {"product-quanity": quantity},
+            success : function(data){
+                console.log("OK");
+                console.log(data);
+                if (data.route == 'front_login'){
+                    window.location.href=data.route;
+                } 
+
+            }
         });
 
         // réinitialiser la valeur de la quantity

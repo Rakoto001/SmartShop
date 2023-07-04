@@ -8,10 +8,11 @@ use App\Services\AddService;
 use App\Services\ArticleService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class AddController extends AbstractController
 {
@@ -45,16 +46,26 @@ class AddController extends AbstractController
         //le panier
         $cart = $session->get('cart', []);
         $currentCustomer = $this->container->get('security.token_storage')->getToken()->getUser();
+        dump($currentCustomer);
         
       
         $cart = $this->addService->addTocart($alls, $cart, $id);
 
         // si user non connnecté : redirect to login
         if (!$currentCustomer instanceof User) {
+            dump('here');
           
             $this->addFlash('notice', 'Vous devriez vous vonnecter avant');
            
-            return $this->redirectToRoute('front_login');
+           
+
+            $response = new JsonResponse(array(
+                'route' => $this->get('router')->generate('front_login'),
+                'message'    => 'Vous devriez vous vonnecter avant'));
+            
+            return $response;
+
+            
         }
         $session->set('cart', $cart);
         $this->addFlash('success', 'Votre article a été ajouté dans le panier');

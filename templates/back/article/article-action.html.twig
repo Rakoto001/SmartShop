@@ -184,8 +184,8 @@
                 <div class="form-group row">
                         <label for="InputSmall" class="col-md-2 form-control-label">Image Cover  *</label>
                     <div class="col-md-10">
-							<input id="dropzone-file" type="file" name="coverImage" accept="image/*" class="dropzone-file {#d-none#}" style="display: block"/>
-                               
+							<input id="img-article-file" type="file" name="coverImage" accept="image/*" class="dropzone-file {#d-none#}" style="display: block"/>
+                            <div id="image-article-show" class="empty-text"></div>   
                     </div>
                 </div>
                 
@@ -199,7 +199,8 @@
 				
 			</div>
 		</div>
-	</div>
+    </div>
+    <button id="my-btn" type="button"> MAKE ALERT</button>
 
 					{# </section> #}
 
@@ -245,6 +246,60 @@
    <script src="{{asset('bo/assets/plugins/multiselect/js/jquery.multi-select.js')}}"></script>
    <script type="text/javascript" src="{{asset('bo/assets/plugins/multi-select/js/jquery.quicksearch.js')}}"></script>
 
+
+
+
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script>
+
+
+
+    
+    
+    
+    
+    $('#img-article-file').on('change', function() {
+        
+
+var file = this.files[0];
+var imagefile = file.type;
+var imageTypes = ["image/jpeg", "image/png", "image/jpg", "image/gif"];
+// var deleteBtn  = '<button id"delete-article-image" type="button" >DELETE </button>'
+var deleteBtn  = '<button id="delete-article-image" class="btn btn-danger btn-sm rounded-0 mydelete" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>'
+// <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+if (imageTypes.indexOf(imagefile) == -1) {
+    
+    //display error
+    return false;
+    $(this).empty();
+}
+else {
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        alert('img uploadé');
+        $(".empty-text").append('<div class"article-img-show"> <img src="' + e.target.result + '"  />' + deleteBtn + ' </div>');
+    };
+    reader.readAsDataURL(this.files[0]);
+}
+
+});
+
+// pour permettre l'action d'un bouton dynamic en js => https://www.youtube.com/watch?v=unk-U_LQWuA
+$("body").on( "click", "#image-article-show", function() {
+
+// // supprime tous les intérieur de .empty-text
+removeArticlePicture();
+
+} );
+
+function removeArticlePicture() {
+$('.empty-text').empty();
+
+    
+}
+</script>
 
 
    <!-- Tags js -->
