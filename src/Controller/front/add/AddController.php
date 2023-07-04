@@ -46,12 +46,13 @@ class AddController extends AbstractController
         $currentCustomer = $this->container->get('security.token_storage')->getToken()->getUser();
       
         $cart = $this->addService->addTocart($alls, $cart, $id);
+        $session->set('cart', $cart);
+
 
         // si user non connnecté : redirect to login
         if (!$currentCustomer instanceof User) {
 
-            $session->set('dataRedirection', ['id' => $id, 
-            'quantity' => $quantity]);
+            $session->set('id', ['id' => $id]);
           
             $this->addFlash('notice', 'Vous devriez vous vonnecter avant');
 
@@ -62,8 +63,8 @@ class AddController extends AbstractController
             return $response;
 
             
+
         }
-        $session->set('cart', $cart);
         $this->addFlash('success', 'Votre article a été ajouté dans le panier');
 
         return $this->redirectToRoute('front_main');

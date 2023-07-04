@@ -77,11 +77,10 @@ class TechnoEventListener
 
         // création route
         // https://stackoverflow.com/questions/8972069/how-redirect-in-onsecurityinteractivelogin-method-in-loginlistener-symfony2
-      
-       $dataRedirection =  $this->session->get('dataRedirection', []);
-       dd($dataRedirection);
+    //   $this->session->set('dataRedirection', '');
+        $id =  $this->session->get('id', [])['id'];
 
-        $response = new RedirectResponse($this->routes->generate('smart_user_profile'));
+        $response = new RedirectResponse($this->routes->generate('adds_list')); //adds_list
         return $response->send();
 
     
