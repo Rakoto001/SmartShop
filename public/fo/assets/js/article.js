@@ -17,9 +17,8 @@ $(document).ready(function(){
             dataType: 'json',
             data: {"product-quanity": quantity},
             success : function(data){
-                console.log("OK");
-                console.log(data);
-                if (data.route == 'front_login'){
+                
+                if (data.route){
                     window.location.href=data.route;
                 } 
 

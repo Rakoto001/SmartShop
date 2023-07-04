@@ -36,19 +36,15 @@ class AboutController extends AbstractController
      */
     public function userProfile()
     {
-        // si conecté -> a propos, 
-        // sinon return login form ( encore a modifier avec regisreation option)
-        // $this->get('security.token.storage')->getUser();
-        // de le refa mi register de maka api externe de any no maka ny password de encodena de ini no alefa mail
 
-        //  activation mail par test endpoint @ controller iray anaty symfo => apina boutton ini de ini no mi lancer ilay activation compte => si compte n'est pas  == 0 compte non activé, vérifiez votre mail
         $aboutCurrentUser = $this->userService->getCurrentUser();
 
         if ($aboutCurrentUser == null) {
             
-            return $this->redirectToRoute('register_visitor');
+            return $this->redirectToRoute('front_login');
 
         }
+        
         
         return $this->render('front/about/about.html.twig', [
                                                                 'about' => $aboutCurrentUser,

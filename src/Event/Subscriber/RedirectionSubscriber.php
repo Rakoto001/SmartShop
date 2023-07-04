@@ -4,9 +4,11 @@ namespace App\Event\Subscriber;
 
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Http\SecurityEvents;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -33,7 +35,25 @@ class RedirectionSubscriber implements EventSubscriberInterface{
 
         return [
             RequestEvent::class => 'onSuccessLoginAction',
+            KernelEvents::CONTROLLER => 'onKernelController',
+            SecurityEvents::INTERACTIVE_LOGIN => 'onLoginSuccess',
         ];
+    }
+
+
+    public function onLoginSuccess(RequestEvent $event)
+    {
+        // dd($event);
+        # code...
+    }
+
+    public function onKernelController($event)
+    {
+        // dd($event);
+        // https://gary-deshayes.com/blog/symfony-event-subscriber-restricting-an-ip-range-with-an-event-subscriber/
+        // dump($event->getRequest()->get('_route'));
+        // die;
+
     }
     public function onSuccessLoginAction(RequestEvent $event)
     {
